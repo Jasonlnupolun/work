@@ -1,0 +1,231 @@
+2016-12-19 13:22:38 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:22:39 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:22:40 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 13:22:40 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 13:22:40 [ main ] 查询数据库的结果集是：899
+2016-12-19 13:22:41 [ main ] 构建的图是899
+2016-12-19 13:22:44 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 13:22:44 [ main ] 查询数据库的结果集是：1027
+2016-12-19 13:22:44 [ main ] 构建的图是1027
+2016-12-19 13:22:47 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 13:22:47 [ main ] 查询数据库的结果集是：997
+2016-12-19 13:22:47 [ main ] 构建的图是997
+2016-12-19 13:22:50 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 13:22:50 [ main ] 查询数据库的结果集是：311
+2016-12-19 13:22:50 [ main ] 构建的图是311
+2016-12-19 13:22:50 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:22:50 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:22:51 [ main ] sql--->SELECT  kanke_id as kankeid,video_type as videotype, case when   (`year`>=2008) then   '5'   when   (`year`>=1990 and `year`<2008)    then   '4'  when   (`year`>=1980 and `year`<1990)    then    '3'   when   (`year`>=1970 and `year`<1980)    then    '2' when   (`year`>=1950 and `year`<1970)    then    '1'   else     '0'  end  as year  , play_count as palycount,score  from t_vod_combine  
+2016-12-19 13:23:42 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc   order by `year` desc , play_count desc  limit 20
+2016-12-19 13:23:42 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 13:23:42 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:43 [ main ] 保存结果是：Map(tv_2356 -> 10.753846153846155, tv_37570 -> 10.849834070124663, tv_47157 -> 10.953998092005724, tv_822 -> 8.723535951770383, tv_51707 -> 10.827478554823847, tv_53419 -> 10.849834070124663, tv_51809 -> 10.849834070124663, tv_47486 -> 10.820224719101123, tv_46143 -> 10.749416367556762, tv_671 -> 8.715384615384615, tv_49723 -> 10.818598248705374, tv_52644 -> 10.905662585680298, tv_18959 -> 8.878288641523556, tv_33815 -> 10.753846153846155, tv_46451 -> 8.715384615384615, tv_119 -> 8.69025191748649, tv_7385 -> 10.849834070124663, tv_6513 -> 8.763939290039723, tv_36360 -> 10.849834070124663, tv_367 -> 10.715384615384615, tv_46699 -> 10.763939290039723, tv_53546 -> 10.690009681326202, tv_15881 -> 10.753846153846155, tv_51429 -> 10.786795792469443, tv_53584 -> 10.785553319064988, tv_37544 -> 10.69025191748649, tv_31331 -> 10.849834070124663)
+2016-12-19 13:23:43 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:23:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:44 [ main ] 保存结果是：Map(arts_38463 -> 10.56408120285201, arts_32940 -> 10.0, arts_38136 -> 10.61111111111111, arts_33956 -> 10.5, arts_34480 -> 10.463586324972765, arts_809945 -> 10.61111111111111, arts_531 -> 8.447903208238808, arts_808196 -> 10.5, arts_1025 -> 10.444444444444445, arts_587 -> 10.463586324972765, arts_22236 -> NaN, arts_1459 -> 10.5, arts_38137 -> 10.566605508300047, arts_33750 -> 10.478303351162378, arts_381551 -> 10.478303351162378, arts_26031 -> 10.463586324972765)
+2016-12-19 13:23:44 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:23:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:23:44 [ main ] 保存结果是：Map(film_7291 -> 11.872883420742548, film_28390 -> 7.872883420742548, film_598 -> 11.872883420742548, film_1445083 -> 11.872883420742548, film_1444192 -> 11.753846153846155, film_9557 -> 9.872883420742548, film_40795 -> 11.88723179170351, film_9271 -> 11.872883420742548, film_43883 -> 11.88723179170351)
+2016-12-19 13:23:44 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:23:44 [ main ] 保存结果是：Map()
+2016-12-19 13:23:44 [ main ] 427----result:film_40795;film_43883;film_7291;film_598;film_1445083;film_9271;film_1444192;tv_47157;tv_52644;tv_37570;tv_53419;tv_51809;tv_7385;tv_36360;tv_31331;tv_51707;tv_47486;tv_49723;tv_51429;tv_53584
+2016-12-19 13:28:44 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 13:28:44 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:44 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:45 [ main ] 保存结果是：Map(tv_2356 -> 10.753846153846155, tv_37570 -> 10.849834070124663, tv_47157 -> 10.953998092005724, tv_822 -> 8.723535951770383, tv_51707 -> 10.827478554823847, tv_53419 -> 10.849834070124663, tv_51809 -> 10.849834070124663, tv_47486 -> 10.820224719101123, tv_46143 -> 10.749416367556762, tv_671 -> 8.715384615384615, tv_49723 -> 10.818598248705374, tv_52644 -> 10.905662585680298, tv_18959 -> 8.878288641523556, tv_33815 -> 10.753846153846155, tv_46451 -> 8.715384615384615, tv_119 -> 8.69025191748649, tv_7385 -> 10.849834070124663, tv_6513 -> 8.763939290039723, tv_36360 -> 10.849834070124663, tv_367 -> 10.715384615384615, tv_46699 -> 10.763939290039723, tv_53546 -> 10.690009681326202, tv_15881 -> 10.753846153846155, tv_51429 -> 10.786795792469443, tv_53584 -> 10.785553319064988, tv_37544 -> 10.69025191748649, tv_31331 -> 10.849834070124663)
+2016-12-19 13:28:45 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:28:45 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:45 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:45 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:45 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:46 [ main ] 保存结果是：Map(arts_38463 -> 10.56408120285201, arts_32940 -> 10.0, arts_38136 -> 10.61111111111111, arts_33956 -> 10.5, arts_34480 -> 10.463586324972765, arts_809945 -> 10.61111111111111, arts_531 -> 8.447903208238808, arts_808196 -> 10.5, arts_1025 -> 10.444444444444445, arts_587 -> 10.463586324972765, arts_22236 -> NaN, arts_1459 -> 10.5, arts_38137 -> 10.566605508300047, arts_33750 -> 10.478303351162378, arts_381551 -> 10.478303351162378, arts_26031 -> 10.463586324972765)
+2016-12-19 13:28:46 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:28:46 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:28:46 [ main ] 保存结果是：Map(film_7291 -> 11.872883420742548, film_28390 -> 7.872883420742548, film_598 -> 11.872883420742548, film_1445083 -> 11.872883420742548, film_1444192 -> 11.753846153846155, film_9557 -> 9.872883420742548, film_40795 -> 11.88723179170351, film_9271 -> 11.872883420742548, film_43883 -> 11.88723179170351)
+2016-12-19 13:28:46 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:28:46 [ main ] 保存结果是：Map()
+2016-12-19 13:28:46 [ main ] 427----result:film_40795;film_43883;film_7291;film_598;film_1445083;film_9271;film_1444192;tv_47157;tv_52644;tv_37570;tv_53419;tv_51809;tv_7385;tv_36360;tv_31331;tv_51707;tv_47486;tv_49723;tv_51429;tv_53584
+2016-12-19 13:51:13 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:51:14 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:51:15 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 13:51:15 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 13:51:15 [ main ] 查询数据库的结果集是：899
+2016-12-19 13:51:15 [ main ] 构建的图是899
+2016-12-19 13:51:18 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 13:51:19 [ main ] 查询数据库的结果集是：1027
+2016-12-19 13:51:19 [ main ] 构建的图是1027
+2016-12-19 13:51:22 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 13:51:23 [ main ] 查询数据库的结果集是：997
+2016-12-19 13:51:23 [ main ] 构建的图是997
+2016-12-19 13:51:26 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 13:51:26 [ main ] 查询数据库的结果集是：311
+2016-12-19 13:51:26 [ main ] 构建的图是311
+2016-12-19 13:51:26 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:51:27 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 13:51:28 [ main ] sql--->
+2016-12-19 13:51:28 [ main ] sql--->
+2016-12-19 13:51:28 [ main ] sql--->
+2016-12-19 13:51:28 [ main ] sql--->
+2016-12-19 13:51:28 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 13:51:28 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 13:51:28 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:00:57 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:00:57 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:00:58 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 14:01:00 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 14:01:00 [ main ] 查询数据库的结果集是：899
+2016-12-19 14:01:01 [ main ] 构建的图是899
+2016-12-19 14:01:03 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 14:01:04 [ main ] 查询数据库的结果集是：1027
+2016-12-19 14:01:04 [ main ] 构建的图是1027
+2016-12-19 14:01:07 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 14:01:07 [ main ] 查询数据库的结果集是：997
+2016-12-19 14:01:07 [ main ] 构建的图是997
+2016-12-19 14:01:10 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 14:01:10 [ main ] 查询数据库的结果集是：311
+2016-12-19 14:01:10 [ main ] 构建的图是311
+2016-12-19 14:01:10 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:01:10 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:01:10 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:01:11 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 14:01:11 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:01:11 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:05 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:06 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:06 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 14:02:06 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 14:02:07 [ main ] 查询数据库的结果集是：899
+2016-12-19 14:02:07 [ main ] 构建的图是899
+2016-12-19 14:02:10 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 14:02:10 [ main ] 查询数据库的结果集是：1027
+2016-12-19 14:02:10 [ main ] 构建的图是1027
+2016-12-19 14:02:13 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 14:02:13 [ main ] 查询数据库的结果集是：997
+2016-12-19 14:02:13 [ main ] 构建的图是997
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 14:02:17 [ main ] 查询数据库的结果集是：311
+2016-12-19 14:02:17 [ main ] 构建的图是311
+2016-12-19 14:02:17 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:17 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:02:17 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 14:02:17 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:02:17 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:18 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:02:52 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:54 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:02:54 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 14:02:55 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 14:02:55 [ main ] 查询数据库的结果集是：899
+2016-12-19 14:02:55 [ main ] 构建的图是899
+2016-12-19 14:02:58 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 14:02:58 [ main ] 查询数据库的结果集是：1027
+2016-12-19 14:02:58 [ main ] 构建的图是1027
+2016-12-19 14:03:01 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 14:03:01 [ main ] 查询数据库的结果集是：997
+2016-12-19 14:03:01 [ main ] 构建的图是997
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 14:03:04 [ main ] 查询数据库的结果集是：311
+2016-12-19 14:03:04 [ main ] 构建的图是311
+2016-12-19 14:03:04 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:03:04 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:03:04 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 14:03:04 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:03:04 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:03:05 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:01 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:44:03 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:44:03 [ main ] sql--->select region,tag from t_vod_combine where region <> ''
+2016-12-19 14:44:03 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'tv'
+2016-12-19 14:44:04 [ main ] 查询数据库的结果集是：899
+2016-12-19 14:44:04 [ main ] 构建的图是899
+2016-12-19 14:44:07 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'arts'
+2016-12-19 14:44:07 [ main ] 查询数据库的结果集是：1027
+2016-12-19 14:44:07 [ main ] 构建的图是1027
+2016-12-19 14:44:10 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'film'
+2016-12-19 14:44:10 [ main ] 查询数据库的结果集是：997
+2016-12-19 14:44:10 [ main ] 构建的图是997
+2016-12-19 14:44:13 [ main ] sql--->SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp 'anime'
+2016-12-19 14:44:13 [ main ] 查询数据库的结果集是：311
+2016-12-19 14:44:13 [ main ] 构建的图是311
+2016-12-19 14:44:14 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:44:14 [ main ] sql--->select region,tag from t_vod_combine where tag <> ''
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,kanke_id as kankeid ,year ,tag as tags, region  from t_vod_combine tvc  where video_type= ? order by `year` desc , play_count desc  limit 20
+2016-12-19 14:44:14 [ main ] sql--->select DISTINCT  userid  from t_userhistory
+2016-12-19 14:44:14 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] 推荐的结果：{"宫廷;言情":"tv_49723;tv_53584;tv_51429;tv_2356;tv_33815;tv_15881;tv_46143;tv_5377;tv_367","偶像;谍战":"tv_8496;tv_53142;tv_29575;tv_48076;tv_52035;tv_12725;tv_47133;tv_47839;tv_37031","":"tv_8496;tv_53142;tv_29575;tv_48076;tv_52035;tv_12725;tv_47133;tv_47839;tv_37031","商战":"tv_47157;tv_52644;tv_51809;tv_53419;tv_51900;tv_47486;tv_37144;tv_32723;tv_53646","其他":"tv_53649;tv_53419;tv_53584;tv_53646;tv_52640"}
+2016-12-19 14:44:14 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:14 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:15 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:15 [ main ] 推荐的结果：{"搞笑;服务":"tv_51888;tv_15595;tv_693;tv_43780;tv_5285;tv_47522;tv_20522;tv_20998;tv_47423;tv_348","时尚;访谈":"tv_44883;tv_53386;tv_46005;tv_46284;tv_46638;tv_52026;tv_16124;tv_19686;tv_5300;tv_14595","其他":"arts_810348;arts_810929;arts_156;arts_427;arts_810925"}
+2016-12-19 14:44:15 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:44:15 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:15 [ main ] sql--->SELECT id ,video_type as videotype ,year ,tag as tags, region  from t_vod_combine tvc  where tvc.kanke_id = ?
+2016-12-19 14:44:15 [ main ] 推荐的结果：{"文艺;爱情":"tv_6533;tv_181;tv_36097;tv_29675;tv_7385;tv_20188;tv_36360;tv_823;tv_45672;tv_19924","其他":"film_1525810;film_1526556;film_1526281;film_1524389;film_1460773"}
+2016-12-19 14:44:15 [ main ] sql--->select userid ,kankeid , video_type as typename from (   select   userid ,   kankeid   from t_userhistory where userid = ?  and typename = ?  limit 50     ) as table1 LEFT JOIN t_vod_combine as tc on tc.kanke_id = table1.kankeid
+2016-12-19 14:44:15 [ main ] 推荐的结果：{"热门":"anime_58522;anime_58340;anime_58604;anime_58406;anime_58384","其他":"anime_58421;anime_58372;anime_58483;anime_57988;anime_58069"}

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: info.debatty:java-graphs:0.29">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/info/debatty/java-graphs/0.29/java-graphs-0.29.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/info/debatty/java-graphs/0.29/java-graphs-0.29-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/info/debatty/java-graphs/0.29/java-graphs-0.29-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
