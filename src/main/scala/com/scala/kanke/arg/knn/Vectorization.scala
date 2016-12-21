@@ -59,7 +59,6 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
 
 object Vectoriza {
   implicit def featureBeanToVideoVector(featureBean: FeatureBean):VideoVector={
-    println(featureBean.toString)
     var videoVector =new VideoVector(featureBean.getKankeid,featureBean.getTags)
     videoVector.setTags(featureBean.getTagsString.split(";"))
     videoVector
@@ -76,8 +75,8 @@ object Vectoriza {
       for(i<- metaSourceBean.getTags.split(";")){
         val index = coordinates.indexOf(i)
         if(index> -1){
-          if(k<2 ) tagsVector(index) = 1.4
-          else tagsVector(index) = 0.8
+          if(k<2 ) tagsVector(index) = 2
+          else tagsVector(index) = 1
         }
         k=k+1
       }
@@ -88,6 +87,13 @@ object Vectoriza {
         val index = coordinates.indexOf(i)
         if(index> -1 )tagsVector(index) = 2
       }
+    }
+
+//    向量化类型
+    if(metaSourceBean!=null && metaSourceBean.getVideotype!=null) {
+        val index = coordinates.indexOf(metaSourceBean.getVideotype)
+        if(index> -1 )tagsVector(index) = 8
+
     }
     //向量化年份
 
