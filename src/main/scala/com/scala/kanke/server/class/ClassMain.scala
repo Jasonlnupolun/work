@@ -35,7 +35,7 @@ object ClassMain {
           val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
           val json = service.startServerClass(userHistory,defaultdata)
           log.info("推荐的结果："+json)
-          Jedis.putJedis(k,u.toString,json);
+          Jedis.putJedis(ConfigClass.prefix+k,u.toString,json);
           }
       }
       Thread.sleep(ConfigMix.time)
@@ -51,7 +51,7 @@ object ClassMain {
       val gson = new Gson
       val jsonStr = gson.toJson(labelMap);
       println(jsonStr)
-      Jedis.putJedis(k,"-1",jsonStr);
+      Jedis.putJedis(ConfigClass.prefix+k,"-1",jsonStr);
     }
 
   }

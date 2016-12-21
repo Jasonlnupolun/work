@@ -1,5 +1,4 @@
 package com.scala.kanke.server
-
 import com.google.gson.Gson
 import com.java.kanke.utils.bean.{Video, UserHistory}
 import com.scala.kanke.arg.canopy.{VideoVector, CanopyBuilder, Canopy}
@@ -51,7 +50,7 @@ class ClassServerImpl extends  ClassServer{
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
     for(i<-knnResult){
       val label = i.tagsString.take(2).toSet
-      val labeltag =label.diff(tagTemp).mkString(";")
+      val labeltag =label.diff(tagTemp).mkString(" ")
       tagTemp ++= label
       val labelids = i.knnResult.map(x=>x.id).mkString(";")
         labelMap.put(labeltag,labelids)
