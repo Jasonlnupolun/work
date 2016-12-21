@@ -10,4 +10,5 @@ object ConfigClass {
 
   val classtypename = PropertyUtil.get("classtypename").split(";");
   val defaultclass  = PropertyUtil.get("defaultclass")
+  val prefix = PropertyUtil.get("prefix")
 }
