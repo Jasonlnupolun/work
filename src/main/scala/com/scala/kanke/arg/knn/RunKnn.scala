@@ -1,6 +1,6 @@
 package com.scala.kanke.arg.knn
 
-import com.scala.kanke.common.Constant
+import com.scala.kanke.common.{ConfigClass, Constant}
 import com.scala.kanke.dao.DaoImpl
 
 /**
@@ -8,7 +8,7 @@ import com.scala.kanke.dao.DaoImpl
   */
 object RunKnn {
 
-  val list = List[String]("tv","arts","film","anime")
+  val list =ConfigClass.classtypename
 
   val dao = new DaoImpl
   val tags = dao.querytags("")
@@ -17,7 +17,7 @@ object RunKnn {
 
   def main(args: Array[String]) {
     val mapGraph = list.map(x=>(x,
-      Knn.knnDaoGraph(new Vectoriza(dao.findByType(x),tags).vectorizer(),dao,x)
+      Knn.knnDaoGraph(new Vectoriza(dao.findByType(x),tags++regions).vectorizer(),dao,x)
       )).toMap
   }
 }
