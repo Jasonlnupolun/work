@@ -46,8 +46,8 @@ object ClassMain {
   def defaultdata(): Unit ={
     for((k,v)<- default){
       var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
-      labelMap.put("热门",default(k).take(5).map(x=>x.getKankeid).mkString(";"))
-      labelMap.put("其他",default(k).slice(5,10).map(x=>x.getKankeid).mkString(";"))
+      labelMap.put("热门",default(k).take(50).map(x=>x.getKankeid).mkString(";"))
+      labelMap.put("其他",default(k).slice(50,100).map(x=>x.getKankeid).mkString(";"))
       val gson = new Gson
       val jsonStr = gson.toJson(labelMap);
       println(jsonStr)
