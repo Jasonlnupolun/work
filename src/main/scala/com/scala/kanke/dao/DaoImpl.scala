@@ -4,7 +4,7 @@ import com.java.kanke.utils.bean.{UserHistory, Video}
 import com.java.kanke.utils.mysql.DBCommon
 import com.scala.kanke.arg.knn.{Vectoriza, FeatureBean}
 import com.scala.kanke.bean.EsBean
-import com.scala.kanke.common.{ConfigMix, Constant}
+import com.scala.kanke.common.{TagConfigClass, ConfigMix, Constant}
 import com.scala.kanke.utils.ConfigUtils
 import org.apache.log4j.Logger
 /**
@@ -24,6 +24,8 @@ trait Dao {
   def queryDefaultVideo():List[Video]
   def queryByKankeid(userHistory:UserHistory):Video
   def queryAllYears():Map[String,String]
+  def findAll():List[Video]
+  def queryHistoryByUserId(userid: String): List[UserHistory]
 }
 class DaoImpl extends  Dao{
   val log = Logger.getLogger(getClass)
@@ -42,6 +44,13 @@ class DaoImpl extends  Dao{
   }
 
 
+  override def findAll(): List[Video] ={
+    import collection.JavaConversions._
+    val listvideo = DBCommon.queryForBean(TagConfigClass.all,null,classOf[Video]).toList;
+    log.info("查询数据库的结果集是：" +listvideo.size)
+    listvideo
+  }
+
   // 根据用户查询该用户的历史数据
   override def queryByUserIdHistory(userid: String,typename:String): List[UserHistory] = {
     val array = new Array[Object](2)
@@ -49,6 +58,15 @@ class DaoImpl extends  Dao{
     array(1)=typename
     import collection.JavaConversions._
     val listvideo = DBCommon.queryForBean(ConfigMix.userhistorysql,array,classOf[UserHistory]).toList
+    listvideo
+  }
+
+  // 根据用户查询该用户的历史数据
+  override def queryHistoryByUserId(userid: String): List[UserHistory] = {
+    val array = new Array[Object](1)
+    array(0)=userid
+    import collection.JavaConversions._
+    val listvideo = DBCommon.queryForBean(TagConfigClass.useridhistory,array,classOf[UserHistory]).toList
     listvideo
   }
 
