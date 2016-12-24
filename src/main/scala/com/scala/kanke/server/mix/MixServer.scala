@@ -89,17 +89,33 @@ class MixServerImpl {
       for (ca <- caseids if !historyidSet.contains(ca.id)) {
         //设置影片的权重，公式为相似度×（1+簇权重）×（1+年代权重×年代）
         val tmpid = ca.id
+
         val tmptypename = tmpid.substring(0,tmpid.indexOf("_"))
-        val tmpArray = Jedis.getMixJedis(tmptypename,ca.id).split(";");
-        var weight = 0.0
-        val similarity = ca.weight;
-        val canopyweight = ca.weight * (1+i.points.size/listvideo.size)      //根据聚类的个数设置影片相似权重
-        val yearweight = tmpArray(0).toDouble
-        val playcount = tmpArray(1)
-        val score = tmpArray(2)
-        weight = 1.0 * canopyweight + 2.0 * yearweight
-        if(knnMap.get(ca.id)== None || knnMap(ca.id) < canopyweight){
-          knnMap(ca.id)=weight
+
+        val array = Jedis.getMixJedis(tmptypename,ca.id)
+        if(array!=null){
+          val tmpArray = array.split(";");
+          var weight = 0.0
+          val similarity = ca.weight;
+          val canopyweight = ca.weight * (1+i.points.size/listvideo.size)      //根据聚类的个数设置影片相似权重
+          val yearweight = tmpArray(0).toDouble
+          val playcount = tmpArray(1)
+          val score = tmpArray(2)
+          weight = 1.0 * canopyweight + 2.0 * yearweight
+          if(knnMap.get(ca.id)== None || knnMap(ca.id) < canopyweight){
+            knnMap(ca.id)=weight
+          }
+        }else{
+          var weight = 0.0
+          val similarity = ca.weight;
+          val canopyweight = ca.weight * (1+i.points.size/listvideo.size)      //根据聚类的个数设置影片相似权重
+          val yearweight = 0
+          val playcount = 0
+          val score = 0
+          weight = 1.0 * canopyweight + 2.0 * yearweight
+          if(knnMap.get(ca.id)== None || knnMap(ca.id) < canopyweight){
+            knnMap(ca.id)=weight
+          }
         }
       }
     }

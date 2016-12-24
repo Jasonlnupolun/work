@@ -36,7 +36,7 @@ class ClassServerImpl extends  ClassServer{
     CanopyBuilder.canopies
   }
 
-  def startServerClass(userHistory:List[UserHistory],default:List[Video]):String={
+  def startServerClass(userHistory:List[UserHistory],default:List[Video],typename:String):String={
     //1，根据簇内影片数量过滤分类推荐结果
     //1.查看用户的历史 转换为向量的 bean
     val userVideolist = getuserHisttory(userHistory)
@@ -44,7 +44,7 @@ class ClassServerImpl extends  ClassServer{
     //2.根据用户的历史进行聚类
     val canopys = doCanopy(userVideolist)
     //3.根据聚类的中心向量进行knn  并进行去重复
-    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(5)
+    val knnResult = getKnnResult(canopys,historyIds,typename).sortWith(_.clusterweight>_.clusterweight).take(5)
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
     var tagTemp = scala.collection.mutable.Set[String]() // 使簇内影片不重复
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
@@ -82,11 +82,11 @@ class ClassServerImpl extends  ClassServer{
 
   //根据聚类的中心,获取最近的数据
   case class CanopyTagData(tagsString:Array[String],knnResult:ArrayBuffer[Result],clusterweight:Double)
-  def getKnnResult(canopys:ArrayBuffer[Canopy],ids:Set[String]):Seq[CanopyTagData]={
+  def getKnnResult(canopys:ArrayBuffer[Canopy],ids:Set[String],typename:String):Seq[CanopyTagData]={
     val listKnnResult = canopys.map(k=>{
       k.computeTags() //计算下标签
       val n = k.points.size*10
-      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.mapGraph("tv"),n,ids),k.getWeight)
+      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.mapGraph(typename),n,ids),k.getWeight)
     })
     listKnnResult
   }

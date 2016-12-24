@@ -60,7 +60,7 @@ class TagClassServerImpl extends TagClassServer{
     val listKnnResult = canopys.map(k=>{
       k.computeTags() //计算下标签
       val n = k.points.size*10
-      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.mapGraph("tv"),n,ids),k.getWeight)
+      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.allGraph,n,ids),k.getWeight)
     })
     listKnnResult
   }

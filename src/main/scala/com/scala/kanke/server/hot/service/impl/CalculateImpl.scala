@@ -9,10 +9,11 @@ import com.scala.kanke.server.hot.service.Calculate
 class CalculateImpl extends Calculate{
 
   override def statistics(listvideo:Seq[Video]): Map[String, Seq[String]] = {
-      val listmap = listvideo.take(10).map(x=>(x.getId+":"+x.getPlaycount.toDouble))
-      val map1= Map("pop"->listmap)
+      val listmap = listvideo.take(100).map(x=>x.getId)
+
+      val map1= Map("hot"->listmap)
 //      val rateIncrease = increaseRate1(listvideo)
-      val map2 = Map("rate"->listmap)
+      val map2 = Map("uprate"->listmap)
       val result =map1++map2
       result
   }

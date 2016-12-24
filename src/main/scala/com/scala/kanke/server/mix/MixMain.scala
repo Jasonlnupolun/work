@@ -32,9 +32,9 @@ object MixMain{
         }
         //构建推荐排序
         if(resultMap.nonEmpty){
-          val jedisReslut = resultMap.toList.sortWith(_._2>_._2).take(20).map(x=>x._1).reduceLeft((x, y)=> x+";"+y)
-          logger.info("用户："+u.toString+"----推荐结果:"+jedisReslut);
-//          Jedis.putJedis(ConfigMix.mixkey,u.toString,jedisReslut)
+          val jedisReslut = resultMap.toList.sortWith(_._2>_._2).take(200).map(x=>x._1).reduceLeft((x, y)=> x+";"+y)
+          logger.info(ConfigMix.mixkey+"用户："+u.toString+"----推荐结果:"+jedisReslut);
+          Jedis.putJedis(ConfigMix.mixkey,u.toString,jedisReslut)
         }
 
       }

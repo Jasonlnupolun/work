@@ -12,11 +12,6 @@ import org.apache.log4j.Logger
   */
 object ClassMain {
   val log = Logger.getLogger(getClass)
-  //    val it = new KafkaConsumer().consume()
-  //    while (it.hasNext) {
-  //      val bean = JsonToBean.toBean(it.next().message())
-  //    }
-
   Constant.mapGraph
   val dao = new DaoImpl
   val service = new ClassServerImpl()
@@ -33,8 +28,8 @@ object ClassMain {
         for(k <- ConfigClass.classtypename){
           val defaultdata = default(k)
           val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
-          val json = service.startServerClass(userHistory,defaultdata)
-          log.info("推荐的结果："+json)
+          val json = service.startServerClass(userHistory,defaultdata,k)
+          log.info(ConfigClass.prefix+k+"   推荐的结果："+u.toString+"   "+json)
           Jedis.putJedis(ConfigClass.prefix+k,u.toString,json);
           }
       }

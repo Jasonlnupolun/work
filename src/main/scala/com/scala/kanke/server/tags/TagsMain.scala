@@ -16,8 +16,6 @@ object TagsMain {
   val service = new TagClassServerImpl()
   //存在返回相应的聚类，不存在返回默认的推荐结果
   val default = service.getOrDefault
-
-
   def main(args: Array[String]) {
     while (true) {
       val users = dao.queryAllUserId()
@@ -25,7 +23,7 @@ object TagsMain {
           var resultMap = scala.collection.mutable.Map[String, Double]()
           val userHistory = dao.queryHistoryByUserId(u.toString) //查找历史
           val json = service.startServerTags(userHistory)
-          log.info("推荐的结果：" + json)
+          log.info(TagConfigClass.prefix+"推荐的结果："+u.toString+"    " + json)
           Jedis.putJedis(TagConfigClass.prefix, u.toString, json);
       }
       Thread.sleep(ConfigMix.time)

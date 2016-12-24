@@ -34,7 +34,7 @@ class DaoImpl extends  Dao{
   override def findByType(tyname:String): List[Video] ={
     val sql = "SELECT id ,kanke_id as kankeid, video_type as videotype ,year ,tag as tags, region" +
       "  from t_vod_combine tvc  where tvc.video_type = ?  and kanke_id regexp '" +
-      tyname+"'"
+      tyname+"'"+" and is_matched = 1 "
     val array = new Array[Object](1)
     array(0)=tyname
     import collection.JavaConversions._
