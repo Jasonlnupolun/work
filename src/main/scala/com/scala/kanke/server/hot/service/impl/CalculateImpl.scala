@@ -10,10 +10,10 @@ class CalculateImpl extends Calculate{
 
   override def statistics(listvideo:Seq[Video]): Map[String, Seq[String]] = {
       val listmap = listvideo.take(100).map(x=>x.getId)
-
+      val rateIncrease = increaseRate1(listvideo)
+      val map2result = rateIncrease.diff(listmap.take(6))
       val map1= Map("hot"->listmap)
-//      val rateIncrease = increaseRate1(listvideo)
-      val map2 = Map("uprate"->listmap)
+      val map2 = Map("uprate"->map2result)
       val result =map1++map2
       result
   }
@@ -30,18 +30,10 @@ class CalculateImpl extends Calculate{
     * 上升最快的
     * 周/月 + 日/周
     */
-//  override def increaseRate1(listvideo:Seq[Video]): Seq[String] = {
-//    val map1= listvideo.map(x=>(x.getId,
-//      (x.getWeekcount/(x.getMonthcount+x.getWeekcount+1)+x.getPlaycount+x.getWeekcount).toDouble))
-//    val result = map1.sortWith(_._2<_._2).map(x=>x._1+":"+x._2)
-//    result
-//  }
-
-
   override def increaseRate1(listvideo:Seq[Video]): Seq[String] = {
     val map1= listvideo.map(x=>(x.getId,
       (x.getWeekcount/(x.getMonthcount+x.getWeekcount+1)+x.getPlaycount+x.getWeekcount).toDouble))
-    val result = map1.sortWith(_._2<_._2).map(x=>x._1+":"+x._2)
+    val result = map1.sortWith(_._2>_._2).map(x=>x._1)
     result
   }
 }

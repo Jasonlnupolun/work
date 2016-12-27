@@ -3,6 +3,7 @@ package com.scala.kanke.arg.knn
 import breeze.linalg.DenseVector
 import com.java.kanke.utils.bean.Video
 import com.scala.kanke.arg.canopy.VideoVector
+import com.scala.kanke.common.ConfigClass
 
 /**
   * Created by Administrator on 2016/11/11.
@@ -60,7 +61,7 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
 object Vectoriza {
   implicit def featureBeanToVideoVector(featureBean: FeatureBean):VideoVector={
     var videoVector =new VideoVector(featureBean.getKankeid,featureBean.getTags)
-    videoVector.setTags(featureBean.getTagsString.split(";"))
+    videoVector.setTags(featureBean.getTagsString.split(";") diff ConfigClass.labelremove)
     videoVector
   }
 
@@ -75,8 +76,10 @@ object Vectoriza {
       for(i<- metaSourceBean.getTags.split(";")){
         val index = coordinates.indexOf(i)
         if(index> -1){
-          if(k<2 ) tagsVector(index) = 2
-          else tagsVector(index) = 1
+          if(k<5){
+            if(k<2 ) tagsVector(index) = 2
+            else tagsVector(index) = 1
+          }
         }
         k=k+1
       }
@@ -93,7 +96,6 @@ object Vectoriza {
     if(metaSourceBean!=null && metaSourceBean.getVideotype!=null) {
         val index = coordinates.indexOf(metaSourceBean.getVideotype)
         if(index> -1 )tagsVector(index) = 8
-
     }
     //向量化年份
 

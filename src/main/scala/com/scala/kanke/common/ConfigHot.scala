@@ -7,4 +7,6 @@ import com.java.kanke.utils.PropertyUtil
   */
 object ConfigHot {
   val prefixup = PropertyUtil.get("prefixup")
+  val popsql = PropertyUtil.get("popsql")
+  val trendsql = PropertyUtil.get("trendsql")
 }

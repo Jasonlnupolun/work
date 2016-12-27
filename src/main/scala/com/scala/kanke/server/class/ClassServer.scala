@@ -4,7 +4,7 @@ import com.java.kanke.utils.bean.{Video, UserHistory}
 import com.scala.kanke.arg.canopy.{VideoVector, CanopyBuilder, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{Knn, FeatureBean, Vectoriza}
-import com.scala.kanke.common.Constant
+import com.scala.kanke.common.{ConfigClass, Constant}
 import com.scala.kanke.service.{ClassServiceImpl, UserHistoryService}
 import org.apache.log4j.Logger
 import scala.collection.mutable.ArrayBuffer
@@ -49,19 +49,30 @@ class ClassServerImpl extends  ClassServer{
     var tagTemp = scala.collection.mutable.Set[String]() // 使簇内影片不重复
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
     for(i<-knnResult){
-      val label = i.tagsString.take(2).toSet
-      val labeltag =label.diff(tagTemp).mkString(" ")
-      tagTemp ++= label
-      val labelids = i.knnResult.map(x=>x.id).mkString(";")
-        labelMap.put(labeltag,labelids)
+      val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
+      print(i.tagsString(0))
+        val labeltag =label.diff(tagTemp).mkString(" ")
+        if(labeltag!=""){
+          tagTemp ++= label
+          val labelids = i.knnResult.map(x=>x.id).mkString(";")
+          labelMap.put(labeltag,labelids)
+        }
+
     }
     //5.推荐几部影片,确保数据是两个标签 指定个数
     if(labelMap.size!=5){
       if(labelMap.size>0){
         labelMap.put("其他",default.take(5).map(x=>x.getKankeid).mkString(";"))
       }else{
-        labelMap.put("热门",default.take(5).map(x=>x.getKankeid).mkString(";"))
-        labelMap.put("其他",default.slice(5,10).map(x=>x.getKankeid).mkString(";"))
+        val hot = default.take(5)
+        val other = default.slice(5,10)
+        if(hot.nonEmpty){
+          labelMap.put("热门",hot.map(x=>x.getKankeid).mkString(";"))
+        }
+        if(other.nonEmpty){
+          labelMap.put("其他",other.map(x=>x.getKankeid).mkString(";"))
+        }
+
       }
     }
     //6.返回影片类型- 返回类型标签 和 推荐ids

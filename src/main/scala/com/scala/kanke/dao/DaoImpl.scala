@@ -115,7 +115,7 @@ class DaoImpl extends  Dao{
         x.split(";")
     })
     val tagsSet = tags.flatMap(x=>x).toSet
-    println("标签的纬度是："+tagsSet.size)
+    println("标签的纬度是："+tagsSet.size+"   " +tagsSet)
     (tagsSet).toArray
   }
 
