@@ -19,6 +19,28 @@ public class Video {
     private String addtime;      //添加时间
     private String userid;       // 用在用户的历史id
     private String score ;      // 得分
+
+    private Long monthcount;    // 月播放量
+
+    private Long weekcount;     // 周播放量
+
+    public Long getMonthcount() {
+        return monthcount;
+    }
+
+    public void setMonthcount(Long monthcount) {
+        this.monthcount = monthcount;
+    }
+
+    public Long getWeekcount() {
+        return weekcount;
+    }
+
+    public void setWeekcount(Long weekcount) {
+        this.weekcount = weekcount;
+    }
+
+
     public String getScore() {
         return score;
     }
