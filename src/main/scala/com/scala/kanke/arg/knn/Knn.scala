@@ -33,7 +33,6 @@ object Knn {
     // Optionnallly, define a callback to get some feedback...
     builder.setCallback(new CallbackInterface() {
       def call(data: HashMap[String, AnyRef]) {
-        System.out.println(data)
       }
     })
     graph

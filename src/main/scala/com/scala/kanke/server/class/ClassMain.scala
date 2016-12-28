@@ -43,7 +43,6 @@ object ClassMain {
       labelMap.put("其他",default(k).slice(50,100).map(x=>x.getKankeid).mkString(";"))
       val gson = new Gson
       val jsonStr = gson.toJson(labelMap);
-      println(jsonStr)
       Jedis.putJedis(ConfigClass.prefix+k,"-1",jsonStr);
     }
 

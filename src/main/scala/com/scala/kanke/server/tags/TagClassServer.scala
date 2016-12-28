@@ -5,8 +5,9 @@ import com.java.kanke.utils.bean.{UserHistory, Video}
 import com.scala.kanke.arg.canopy.{CanopyBuilder, VideoVector, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{Knn, Vectoriza, FeatureBean}
-import com.scala.kanke.common.Constant
+import com.scala.kanke.common.{ConfigClass, Constant}
 import com.scala.kanke.service.{UserHistoryService, TagClassServiceImpl}
+import org.apache.log4j.Logger
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -20,6 +21,7 @@ trait TagClassServer {
 }
 
 class TagClassServerImpl extends TagClassServer{
+  val log = Logger.getLogger(getClass)
   val tagclassService  = new TagClassServiceImpl
   val userHistoryService = new UserHistoryService()
   val gson = new Gson
@@ -32,7 +34,11 @@ class TagClassServerImpl extends TagClassServer{
   def startServerTags(userHistory:List[UserHistory]):String={
     //1，根据簇内影片数量过滤分类推荐结果
     //1.查看用户的历史 转换为向量的 bean
+
     val userVideolist = getuserHisttory(userHistory)
+    for(u<-userVideolist){
+      log.info(u.getTagsString)
+    }
     val historyIds = userHistory.map(x=>x.getKankeid).toSet
     //2.根据用户的历史进行聚类
     val canopys = doCanopy(userVideolist)
@@ -43,11 +49,14 @@ class TagClassServerImpl extends TagClassServer{
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
 
     for(i<-knnResult){
-      val label = i.tagsString.take(2).toSet
+      val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
+      log.info(i.tagsString(0))
       val labeltag =label.diff(tagTemp).mkString(" ")
-      tagTemp ++= label
-      val labelids = i.knnResult.map(x=>x.id).mkString(";")
-      labelMap.put(labeltag,labelids)
+      if(labeltag!=""){
+        tagTemp ++= label
+        val labelids = i.knnResult.map(x=>x.id).mkString(";")
+        labelMap.put(labeltag,labelids)
+      }
     }
     val jsonStr = gson.toJson(labelMap);
     jsonStr

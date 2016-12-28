@@ -50,7 +50,6 @@ class ClassServerImpl extends  ClassServer{
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
     for(i<-knnResult){
       val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
-      print(i.tagsString(0))
         val labeltag =label.diff(tagTemp).mkString(" ")
         if(labeltag!=""){
           tagTemp ++= label

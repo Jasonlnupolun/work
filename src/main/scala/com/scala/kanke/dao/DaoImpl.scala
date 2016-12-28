@@ -94,7 +94,6 @@ class DaoImpl extends  Dao{
   //根据看客的id 查询特征
   override def queryKankeFeaturById(userHistory:UserHistory): FeatureBean = {
     val array = new Array[Object](1)
-    println(userHistory.getKankeid)
     array(0)=userHistory.getKankeid
     import collection.JavaConversions._
     val video = DBCommon.queryBean(ConfigMix.featurebyidsql,array,classOf[Video]);
@@ -115,7 +114,6 @@ class DaoImpl extends  Dao{
         x.split(";")
     })
     val tagsSet = tags.flatMap(x=>x).toSet
-    println("标签的纬度是："+tagsSet.size+"   " +tagsSet)
     (tagsSet).toArray
   }
 

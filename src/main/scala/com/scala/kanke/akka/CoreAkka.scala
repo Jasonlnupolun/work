@@ -5,6 +5,5 @@ package com.scala.kanke.akka
   */
 object CoreAkka {
   def main(args: Array[String]) {
-    println(1111)
   }
 }

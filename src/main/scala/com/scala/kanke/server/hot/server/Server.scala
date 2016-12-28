@@ -17,7 +17,6 @@ class Server {
     val sql: String =ConfigHot.popsql
 
     val videolist = daoServer.queryVideo(sql,null,classOf[Video]);
-    println(videolist.size)
 
     //统计分析
     val cal = new CalculateImpl
