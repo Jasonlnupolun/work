@@ -1,37 +1,46 @@
+/*
 package kmeans;
 
 import org.encog.ml.MLCluster;
-import org.encog.ml.data.MLDataPair;
 import org.encog.ml.data.MLDataSet;
-import org.encog.ml.data.basic.BasicMLData;
-import org.encog.ml.data.basic.BasicMLDataPair;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.ml.kmeans.KMeansClustering;
 
 import java.util.Arrays;
 
+*/
 /**
  * This example performs a simple KMeans cluster.  The numbers are clustered
  * into two groups.
- */
+ *//*
+
 public class SimpleKMeans {
 
-	/**
+	*/
+/**
 	 * The data to be clustered.
-	 */
-	public static final double[][] DATA = { { 28, 15, 22 }, { 16, 15, 32 },
-			{ 32, 20, 44 }, { 1, 2, 3 }, { 3, 2, 1 } };
+	 *//*
 
-	/**
+	public static final double[][] DATA = {
+			{ 28, 15, 22 },
+			{ 16, 15, 32 },
+			{ 32, 20, 44 },
+			{ 1, 2, 3 },
+			{ 3, 2, 1 } };
+
+	*/
+/**
 	 * The main method.
 	 * @param args Arguments are not used.
-	 */
+	 *//*
+
 	public static void main(final String args[]) {
 
 		final BasicMLDataSet set = new BasicMLDataSet();
-
+		int k =0 ;
 		for (final double[] element : SimpleKMeans.DATA) {
-			set.add(new BasicMLData(element));
+			set.add(new KpointBean(element,k+""));
+			k++;
 		}
 
 		final KMeansClustering kmeans = new KMeansClustering(2, set);
@@ -44,13 +53,13 @@ public class SimpleKMeans {
 		for (final MLCluster cluster : kmeans.getClusters()) {
 			System.out.println("*** Cluster " + (i++) + " ***");
 			final MLDataSet ds = cluster.createDataSet();
-			final MLDataPair pair = BasicMLDataPair.createPair(
+			final KpointPair pair = KpointPair.createPair(
 					ds.getInputSize(), ds.getIdealSize());
 			for (int j = 0; j < ds.getRecordCount(); j++) {
 				ds.getRecord(j, pair);
+				pair.getId();
 				System.out.println(Arrays.toString(pair.getInputArray()));
-
 			}
 		}
 	}
-}
+}*/

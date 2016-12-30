@@ -142,7 +142,9 @@ object Knn {
       if(it.node.id!="0" && !ids.contains(it.node.id) )
         resultMap+=Result(it.node.id,it.similarity)
     }
-    resultMap.sortWith( _.weight >_.weight)
+    resultMap.filter(
+      _.weight>0.15
+    )sortWith( _.weight >_.weight)
   }
 }
 

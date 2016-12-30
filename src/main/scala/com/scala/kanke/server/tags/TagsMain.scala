@@ -29,5 +29,4 @@ object TagsMain {
       Thread.sleep(ConfigMix.time)
     }
   }
-
 }

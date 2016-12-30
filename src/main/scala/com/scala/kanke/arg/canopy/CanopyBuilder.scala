@@ -7,9 +7,10 @@ import scala.collection.mutable.ArrayBuffer
   */
 object CanopyBuilder {
   private var T1: Double = 0.2
-  private var T2: Double = 0.15    // 三个最后标签相同的距离是0.19
+  private var T2: Double = 0.3    // 三个最后标签相同的距离是0.19
   var points: ArrayBuffer[VideoVector] = null
   var canopies: ArrayBuffer[Canopy] = null
+
   def cosVector(a: VideoVector, b: VideoVector): Double = {
     val y = norm(a.x) * norm(b.x)
     val result = a.x.dot(b.x)
@@ -32,14 +33,14 @@ object CanopyBuilder {
           for (canopy <- canopies) {
             val center: VideoVector = canopy.getCenter
             val d: Double = cosVector(current, center)
-            if (d <= T2) {
+            if (d >= T2) {
               current.setMark(VideoVector.MARK_STRONG)
               isRemove = true
-            }else if (d <= T1) {
+            }else if (d >= T1) {
               index += 1
               current.setMark(VideoVector.MARK_WEAK)
               canopy.getPoints.add(current)
-            } else if (d > T1) {
+            } else if (d < T1) {
               index += 1
             }
           }
@@ -59,6 +60,7 @@ object CanopyBuilder {
     }
     for (c <- canopies) {
       c.computeCenter
+//      c.computeTags()
     }
   }
 }

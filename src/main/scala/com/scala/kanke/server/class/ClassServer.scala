@@ -48,12 +48,15 @@ class ClassServerImpl extends  ClassServer{
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
     var tagTemp = scala.collection.mutable.Set[String]() // 使簇内影片不重复
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
+    var knndiffid = new ArrayBuffer[String]()
     for(i<-knnResult){
-      val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
+      val label = i.tagsString.diff(ConfigClass.labelremove).take(3).toSet
         val labeltag =label.diff(tagTemp).mkString(" ")
         if(labeltag!=""){
           tagTemp ++= label
-          val labelids = i.knnResult.map(x=>x.id).mkString(";")
+          val labelidsArray = i.knnResult.map(x=>x.id).diff(knndiffid)
+          knndiffid ++= labelidsArray
+          val labelids = labelidsArray.mkString(";")
           labelMap.put(labeltag,labelids)
         }
 

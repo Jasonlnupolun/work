@@ -98,17 +98,7 @@ public class DBCommon {
         }
         return new QueryRunner(DBCommon.ds_mysql);
     }
- 
-/*    public synchronized static LBHttpSolrServer getSolrServer() {
-        if (solrServer == null) {
-            try {
-                DBCommon.solrServer = new LBHttpSolrServer(url_solr.split(";"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return solrServer;
-    }*/
+
  
     public synchronized static Connection getConnClobOracle() {
         if (conn == null) {

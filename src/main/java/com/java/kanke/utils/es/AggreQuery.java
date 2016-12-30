@@ -21,7 +21,7 @@ public class AggreQuery {
 		Map<String ,List<Object>> map = new HashMap<String, List<Object>>();
 		List<Object> label = new ArrayList<Object>();
 		List<Object> num = new ArrayList<Object>();
-		System.out.println(String.format("SELECT count(*),url FROM log/docs WHERE logtime BETWEEN %c AND '%%s'  group by url   limit 30", time1,time2));
+		 String.format("SELECT count(*),url FROM log/docs WHERE logtime BETWEEN %c AND '%%s'  group by url   limit 30", time1,time2) ;
 		Aggregations result = query(String.format("SELECT count(*),url FROM log/docs WHERE logtime BETWEEN '2016-04-28' AND '2016-04-29'  group by url   limit 30", time1,time2));
 		Terms gender = result.get("url");
 		for(Terms.Bucket bucket : gender.getBuckets()) {

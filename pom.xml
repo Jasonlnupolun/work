@@ -6,6 +6,8 @@
 
     <groupId>com.js.rec</groupId>
     <artifactId>jsclass.rec</artifactId>
+     <!--<artifactId>jsmix.rec</artifactId>-->
+    <!--<artifactId>jstags.rec</artifactId>-->
     <version>1.0-SNAPSHOT</version>
     <properties>
         <scala.version>2.11.8</scala.version>
@@ -159,6 +161,12 @@
             <groupId>org.encog</groupId>
             <artifactId>encog-core</artifactId>
             <version>3.3.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.haifengl/smile-core -->
+        <dependency>
+            <groupId>com.github.haifengl</groupId>
+            <artifactId>smile-core</artifactId>
+            <version>1.2.2</version>
         </dependency>
     </dependencies>
 
@@ -314,6 +322,10 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>com.scala.kanke.server.ClassMain</Main-Class>
+                                       <!--<Main-Class>com.scala.kanke.server.mix.MixMain</Main-Class>-->
+                                         <!--<Main-Class>com.scala.kanke.server.tags.TagsMain</Main-Class>-->
+
+
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
