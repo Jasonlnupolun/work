@@ -25,11 +25,13 @@ object MixMain{
     while (true){
       val users = dao.queryAllUserId()
       for(u <- users){
+
         var resultMap = scala.collection.mutable.Map[String,Double]()
         for(k<- ConfigClass.classtypename){
           val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
           resultMap= resultMap++service.startAllServerMix(k,userHistory)
         }
+
         //构建推荐排序
         if(resultMap.nonEmpty){
           val jedisReslut = resultMap.toList.sortWith(_._2>_._2).take(200).map(x=>x._1).reduceLeft((x, y)=> x+";"+y)
