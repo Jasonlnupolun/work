@@ -19,6 +19,7 @@ public class Hello1 {
         public void onReceive(Object message) throws Exception {
             if (message instanceof String) {
                 System.out.println("Hello " + message);
+//                getSender().tell(" self  ",getSender());
             }
         }
     }

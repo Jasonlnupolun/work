@@ -7,6 +7,7 @@ import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.serializer.StringDecoder;
 import kafka.utils.VerifiableProperties;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class KafkaConsumer {
     public final static String TOPIC = "test";
     public KafkaConsumer() {
         Properties props = new Properties();
-        props.put("zookeeper.connect", "121.42.141.232:2181,115.28.156.126:2181,121.42.60.39:2181");
+        props.put("zookeeper.connect", "122.193.13.70:2181");
 //        props.put("zookeeper.connect", "127.0.0.1:2181");
         props.put("group.id", "jd-group");
         props.put("zookeeper.session.timeout.ms", "4000");

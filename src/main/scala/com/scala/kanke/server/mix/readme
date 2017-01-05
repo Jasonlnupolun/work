@@ -1,0 +1,7 @@
+ 添加kafka实现增量的添加推荐数据
+
+    // 增量分析
+//    val it = new KafkaConsumer().consume()
+//    while (it.hasNext) {
+//      val bean = JsonToBean.toBean(it.next().message())
+//    }

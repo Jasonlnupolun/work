@@ -14,24 +14,16 @@ object MixMain{
   val VideoMap =redisSave
   def main(args: Array[String]) {
 
-    // 增量分析
-//    val it = new KafkaConsumer().consume()
-//    while (it.hasNext) {
-//      val bean = JsonToBean.toBean(it.next().message())
-//    }
     defaultVideo
-
     // 全量分析
     while (true){
       val users = dao.queryAllUserId()
       for(u <- users){
-
         var resultMap = scala.collection.mutable.Map[String,Double]()
         for(k<- ConfigClass.classtypename){
           val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
           resultMap= resultMap++service.startAllServerMix(k,userHistory)
         }
-
         //构建推荐排序
         if(resultMap.nonEmpty){
           val jedisReslut = resultMap.toList.sortWith(_._2>_._2).take(200).map(x=>x._1).reduceLeft((x, y)=> x+";"+y)

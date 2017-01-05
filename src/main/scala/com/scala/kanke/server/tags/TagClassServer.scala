@@ -41,7 +41,7 @@ class TagClassServerImpl extends TagClassServer{
     val canopys = doCanopy(userVideolist)
 
     //3.根据聚类的中心向量进行knn  并进行去重复
-    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(50)
+    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(10)
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
     var tagTemp = scala.collection.mutable.Set[String]() // 使簇内影片不重复
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
