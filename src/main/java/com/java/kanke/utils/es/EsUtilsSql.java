@@ -11,8 +11,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class EsUtilsSql {
-
-	
 	private static TransportClient client;
 	private static SearchDao searchDao;
 	public  EsUtilsSql() throws Exception {

@@ -1,25 +1,21 @@
-/*
+
 package kmeans;
 
-import org.encog.ml.MLCluster;
-import org.encog.ml.data.MLDataSet;
 import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.ml.kmeans.KMeansClustering;
 
-import java.util.Arrays;
 
-*/
 /**
  * This example performs a simple KMeans cluster.  The numbers are clustered
  * into two groups.
- *//*
+ */
 
 public class SimpleKMeans {
 
-	*/
+
 /**
 	 * The data to be clustered.
-	 *//*
+	 */
 
 	public static final double[][] DATA = {
 			{ 28, 15, 22 },
@@ -28,11 +24,11 @@ public class SimpleKMeans {
 			{ 1, 2, 3 },
 			{ 3, 2, 1 } };
 
-	*/
+
 /**
 	 * The main method.
 	 * @param args Arguments are not used.
-	 *//*
+	 */
 
 	public static void main(final String args[]) {
 
@@ -50,7 +46,7 @@ public class SimpleKMeans {
 
 		// Display the cluster
 		int i = 1;
-		for (final MLCluster cluster : kmeans.getClusters()) {
+		/*for (final MLCluster cluster : kmeans.getClusters()) {
 			System.out.println("*** Cluster " + (i++) + " ***");
 			final MLDataSet ds = cluster.createDataSet();
 			final KpointPair pair = KpointPair.createPair(
@@ -60,6 +56,6 @@ public class SimpleKMeans {
 				pair.getId();
 				System.out.println(Arrays.toString(pair.getInputArray()));
 			}
-		}
+		}*/
 	}
-}*/
+}

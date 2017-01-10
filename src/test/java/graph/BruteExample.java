@@ -38,6 +38,8 @@ public class BruteExample {
         for(int i =0;i<connectedComponents.size();i++){
 
 
+
+
             Iterable<Node<Integer>> nl = connectedComponents.get(i).getNodes();
             for (Node<Integer> n : nl) {
                 System.out.print(n.id+":"+n.value+"          ");

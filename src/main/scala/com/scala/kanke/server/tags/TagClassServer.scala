@@ -34,12 +34,10 @@ class TagClassServerImpl extends TagClassServer{
   def  startServerTags(userHistory:List[UserHistory]):String={
     //1，根据簇内影片数量过滤分类推荐结果
     //1.查看用户的历史 转换为向量的 bean
-
     val userVideolist = getuserHisttory(userHistory)
     val historyIds = userHistory.map(x=>x.getKankeid).toSet
     //2.根据用户的历史进行聚类
     val canopys = doCanopy(userVideolist)
-
     //3.根据聚类的中心向量进行knn  并进行去重复
     val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(10)
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
@@ -49,7 +47,6 @@ class TagClassServerImpl extends TagClassServer{
     for(i<-knnResult){
       val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
       val labeltag =label.diff(tagTemp).mkString(" ")
-
       // 每个聚类中心knn出的结果需要进行去重复
       if(labeltag!=""){
         tagTemp ++= label

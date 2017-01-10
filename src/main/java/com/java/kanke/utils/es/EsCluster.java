@@ -1,5 +1,6 @@
 package com.java.kanke.utils.es;
 
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -10,12 +11,12 @@ import java.net.UnknownHostException;
 public class EsCluster {
 
 	 public static final String CLUSTER_NAME = "kanke-cluster"; //实例名称
-	    private static final String IP1 = "121.42.141.232";
+	    private static final String IP1 = "115.28.156.126";
 	    private static final int PORT1 = 9300;  //端口
-		private static final String IP2 = "115.28.156.126";
-		private static final int PORT2 = 9300;  //端口
-		private static final String IP3 = "121.42.60.39";
-		private static final int PORT3 = 9300;  //端口
+//		private static final String IP2 = "115.28.156.126";
+//		private static final int PORT2 = 9300;  //端口
+//		private static final String IP3 = "121.42.60.39";
+//		private static final int PORT3 = 9300;  //端口
 	    //1.设置集群名称：默认是elasticsearch，并设置client.transport.sniff为true，使客户端嗅探整个集群状态，把集群中的其他机器IP加入到客户端中  
 	    /* 
 	    //对ES1.6有效 
@@ -51,11 +52,15 @@ public class EsCluster {
 	    static {  
 	        try {
 	            client = TransportClient.builder().settings(settings).build()  
-	                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP1), PORT1))
-						.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP2), PORT2))
-						.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP3), PORT3));
+	                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP1), PORT1));
+//						.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP2), PORT2))
+//						.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(IP3), PORT3));
 	        } catch (UnknownHostException e) {  
 	            e.printStackTrace();  
 	        }  
-	    }  
+	    }
+
+	public Client getClient(){
+		return client;
+	}
 }
