@@ -5,8 +5,6 @@ import com.scala.kanke.common.{ConfigClass, ConfigMix, Constant}
 import com.scala.kanke.dao.DaoImpl
 import com.scala.kanke.utils.Jedis
 import org.apache.log4j.Logger
-
-
 /**
   * Created by Administrator on 2016/11/21.
   */

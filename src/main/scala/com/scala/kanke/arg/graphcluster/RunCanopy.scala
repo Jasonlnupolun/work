@@ -14,7 +14,7 @@ import scala.collection.JavaConversions._
   def main(args: Array[String]) {
     val canopys =doCanopy(BruteGraph.initVector().toList)
     for(i<-canopys) {
-      print(i.getTags)
+      print(i.idWeights)
     }
   }
   def doCanopy(featureBeans:List[FeatureBean]):ArrayBuffer[Canopy]={

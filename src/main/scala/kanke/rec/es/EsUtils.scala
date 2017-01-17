@@ -10,8 +10,6 @@ import org.elasticsearch.plugin.deletebyquery.DeleteByQueryPlugin
 
 
 /**
-  * Created by gavin on 16-4-12.
-  * northland89@163.com 
   */
 object EsUtils {
   def getClient(localhost: String, port: Int,clusterName:String="elasticsearch"): Client = {
@@ -54,5 +52,13 @@ object EsUtils {
   def getESClient(localhost: String, port: Int,clusterName:String="elasticsearch",isSniff:Boolean=true):ESClient={
     ESClient(getClient(localhost,port,clusterName))
   }
+
+
+
+
+
+
+
+
 }
 

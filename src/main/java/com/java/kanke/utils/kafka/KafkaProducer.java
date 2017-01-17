@@ -1,13 +1,13 @@
 package com.java.kanke.utils.kafka;
 
 import com.google.gson.Gson;
-import com.java.kanke.utils.bean.UserHistory;
+import com.java.kanke.utils.mysql.DBCommon;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
 
-import java.util.*;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Hello world!
@@ -22,7 +22,7 @@ public class KafkaProducer
     private KafkaProducer(){
         Properties props = new Properties();
 //        props.put("metadata.broker.list", "121.42.141.232:9092,115.28.156.126:9092,121.42.60.39:9092");
-        props.put("metadata.broker.list", "127.0.0.1:9092");
+        props.put("metadata.broker.list", "122.193.13.70:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("key.serializer.class", "kafka.serializer.StringEncoder");
 
@@ -71,24 +71,25 @@ public class KafkaProducer
     public static void main( String[] args )
     {
         KafkaProducer kafkaProducer = new KafkaProducer();
-//        new KafkaProducer().produce();
-        kafkaProducer.produce1(kafkaProducer.testSaveBean());
+//        new KafkaProducer().produce()
+        List<TestBean> tlist = kafkaProducer.testSaveBean();
+        for(TestBean t:tlist){
+            Gson gson = new Gson();
+            kafkaProducer.produce1(gson.toJson(t));
+        }
+
         System.out.println("完成！");
     }
 
 
 
-    public String testSaveBean(){
-        Gson gson = new Gson();
-        UserHistory u= new UserHistory();
-        u.setUserid("001");
-        u.setAddtime(System.currentTimeMillis()+"");
-        u.setTypename("film");
-        u.setKankeid("film_1526281");
-        u.setVideoid("842");
-        String bean = gson.toJson(u);
-        System.out.println(bean);
-        return bean;
+    public <T> List<T> testSaveBean(){
+
+        String sql = "select id , userid  ,vodid as videoid ,kankeid from t_userhistory where id > ? order by id asc" ;
+        Object[] params = new Object[1];
+        params[0]=0;
+        List<T> listbean = DBCommon.queryForBean(sql,params,TestBean.class );
+        return listbean;
     }
 
 }

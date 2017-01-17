@@ -7,8 +7,6 @@ import java.io.*;
 public class ReadDataset {
 	// 定义文件路径
 	String filepath = "C:/Users/Zengli/Desktop/数据挖掘-实验数据集/raw_dataset/dataset5.txt" ;
-	
-	
 	/**
 	 * 读数据集文件中共有多少行，即共有多少个数据点
 	 * @return

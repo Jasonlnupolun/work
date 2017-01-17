@@ -11,11 +11,13 @@ import scala.collection.JavaConversions
 
 /**
   * Created by gavin on 16-4-12.
-  * northland89@163.com 
   */
 case class ESClient(client:Client) {
   val logger = Logger.getLogger(getClass)
+
   var searchDao = new SearchDao(client)
+
+
   def query[T](eSJob:ESJob[T],classType:Class[T]): Seq[T] ={
     val sql = eSJob.getSql
     val select = searchDao.explain(sql).explain()
@@ -35,6 +37,7 @@ case class ESClient(client:Client) {
     client.close()
   }
 }
+
 
 object ESClient{
   def apply(host: String, port: Int,clusterName:String="elasticsearch",isSniff:Boolean=true): ESClient ={

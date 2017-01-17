@@ -27,6 +27,37 @@ trait Dao {
   def findAll():List[Video]
   def queryHistoryByUserId(userid: String): List[UserHistory]
 }
+
+class ElasSql extends  Dao{
+  override val coordinates: Array[String] = null
+
+  override def findByType(userid: String): List[Video] = ???
+
+  override def update(sql: String, array: Array[Object]): Unit = ???
+
+  override def queryAllYears(): Map[String, String] = ???
+
+  override def querytags(sql: String): Array[String] = ???
+
+  override def queryDefaultVideo(): List[Video] = ???
+
+  override def findAll(): List[Video] = ???
+
+  override def queryHistoryByUserId(userid: String): List[UserHistory] = ???
+
+  override def queryKankeFeaturById(userHistory: UserHistory): FeatureBean = ???
+
+  override def queryByUserIdHistory(sql: String, typename: String): List[UserHistory] = ???
+
+  override def queryByKankeid(userHistory: UserHistory): Video = ???
+
+  override def queryOrgion(sql: String): Array[String] = ???
+
+  override def queryAllHistory(userid: String): Unit = ???
+
+  override def queryAllUserId(): List[String] = ???
+}
+
 class DaoImpl extends  Dao{
   val log = Logger.getLogger(getClass)
 

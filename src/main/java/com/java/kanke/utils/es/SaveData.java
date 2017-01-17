@@ -6,6 +6,7 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class SaveData {
     private static Client client = null ;
     static{
         try {
-            client = getSingleClient("127.0.0.1");
+            client = getSingleClient("115.28.156.126");
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -28,13 +29,13 @@ public class SaveData {
 
 
     public static Client getSingleClient(String ip) throws UnknownHostException {
-//        Settings settings = Settings
-//                .settingsBuilder()
-////                .put("cluster.name","kanke-cluster")
-////				.put("cluster.name","elasticsearch")
-//                .put("client.transport.sniff", true)
-//                .build();
-        Client client = TransportClient.builder().build()
+        Settings settings = Settings
+                .settingsBuilder()
+                .put("cluster.name","kanke-cluster")
+//				.put("cluster.name","elasticsearch")
+                .put("client.transport.sniff", true)
+                .build();
+        Client client = TransportClient.builder().settings(settings).build()
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
         return client;
     }

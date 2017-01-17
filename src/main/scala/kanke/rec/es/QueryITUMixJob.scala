@@ -12,10 +12,12 @@ object TimeInterval{
   lazy val day:Long = hour*24
   lazy val month:Long = day*30
 }
+
 /**
   * Created by gavin on 16-4-12.
   * northland89@163.com 
   */
+
 case class QueryITUMixJob(id:Long,size:Int,days:Int,esIndex:String) extends ESJob[UserHistory](classOf[UserHistory]){
   val time = System.currentTimeMillis()-days*TimeInterval.day
   override def getSql: String = s"select * from lsyindex where userid = $id and time > $time order by time desc limit $size"
