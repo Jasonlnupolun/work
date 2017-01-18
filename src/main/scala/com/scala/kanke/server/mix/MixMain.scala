@@ -3,20 +3,22 @@ package com.scala.kanke.server.mix
 import com.java.kanke.utils.bean.Video
 import com.java.kanke.utils.kafka.KafkaConsumer
 import com.java.kanke.utils.mysql.DBCommon
-import com.scala.kanke.common.{ConfigClass, ConfigMix, Constant}
+import com.scala.kanke.common.{MixConstant, ConfigClass, ConfigMix, Constant}
 import com.scala.kanke.dao.DaoImpl
 import com.scala.kanke.utils.Jedis
 import kafka.consumer.ConsumerIterator
 import org.apache.log4j.Logger
 object MixMain{
   val logger = Logger.getLogger(getClass)
-  Constant.mapGraph
+  MixConstant.mapGraph
   val dao = new DaoImpl
   val service = new MixServerImpl()
   val VideoMap =redisSave
+
   def main(args: Array[String]) {
     defaultVideo
-    recByKafka
+    new MixRec().runAllMix()
+//    recByKafka
   }
 
   def defaultVideo(): Unit ={

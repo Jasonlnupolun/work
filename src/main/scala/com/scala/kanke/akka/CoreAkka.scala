@@ -1,36 +1,29 @@
 package com.scala.kanke.akka
 
-import java.util.concurrent.TimeUnit
 
 import akka.actor.{Props, ActorSystem}
-import com.scala.kanke.common.Constant
-import com.scala.kanke.dao.DaoImpl
+import com.java.kanke.utils.kafka.KafkaConsumer
+import kafka.consumer.ConsumerIterator
 
 import org.apache.log4j.Logger
-
 import scala.concurrent.duration.Duration
 
 /**
   * Created by Administrator on 2016/12/5.
   */
+case class classrec(userid:String,vedioid:String)
+case class mixrec(userid:String,vedioid:String)
+case class tagsrec(userid:String,vedioid:String)
 object CoreAkka {
-
-  val log = Logger.getLogger(getClass)
-  Constant.mapGraph
-  val dao = new DaoImpl
-
   def main(args: Array[String]): Unit = {
     val actorSystem = ActorSystem("recSys")
     val master = actorSystem.actorOf(Props[MasterActor], name = "master")
-    //      scheduler().scheduleOnce(Duration.create(2000, TimeUnit. MILLISECONDS)
-    while(true) {
-      val users = dao.queryAllUserId()
-      for(u <- users){
-
-        master!u
-        }
-      }
-    Thread.sleep(35000L)
+    val it: ConsumerIterator[String, String] = new KafkaConsumer().consume
+    while (it.hasNext()){
+      master ! classrec(it.next().message(),"film_844128")
+      master ! mixrec(it.next().message(),"film_844128")
+      master ! tagsrec(it.next().message(),"film_844128")
     }
+  }
 
 }

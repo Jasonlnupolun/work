@@ -26,6 +26,7 @@ trait Dao {
   def queryAllYears():Map[String,String]
   def findAll():List[Video]
   def queryHistoryByUserId(userid: String): List[UserHistory]
+  def queryDistrict:java.util.Map[String,String]
 }
 
 class ElasSql extends  Dao{
@@ -56,6 +57,8 @@ class ElasSql extends  Dao{
   override def queryAllHistory(userid: String): Unit = ???
 
   override def queryAllUserId(): List[String] = ???
+
+  override def queryDistrict: java.util.Map[String, String] = ???
 }
 
 class DaoImpl extends  Dao{
@@ -192,4 +195,17 @@ class DaoImpl extends  Dao{
     val  videoBean = DBCommon.queryForMap(sql,null)
     videoBean.toMap
   }
+
+  override def queryDistrict: java.util.Map[String, String] = ???
+}
+
+
+class MixDaoImpl extends  DaoImpl{
+
+      override  def queryDistrict={
+        val sql = ConfigMix.district
+        import collection.JavaConversions._
+        DBCommon.queryMap(sql,null).asInstanceOf[java.util.Map[String,String]]
+      }
+
 }

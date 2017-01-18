@@ -140,6 +140,18 @@ public class DBCommon {
         return v ;
     }
 
+    public static Map<String,Object> queryMap(String sql, Object[] params){
+        QueryRunner runner = DBCommon.getQueryRunnerMysql();
+        Map<String,Object> map = new HashMap<String,Object>();
+        try {
+            logger.info("sql--->"+sql);
+            map =  runner.query(sql,params,new MapHandler())  ;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return map ;
+    }
+
 
     public static <T>List<T> queryColumnListHandler(String sql,String tags,Object[] params) throws SQLException{
         QueryRunner runner = DBCommon.getQueryRunnerMysql();

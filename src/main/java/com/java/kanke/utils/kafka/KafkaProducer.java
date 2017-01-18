@@ -77,14 +77,12 @@ public class KafkaProducer
             Gson gson = new Gson();
             kafkaProducer.produce1("456");
         }
-
         System.out.println("完成！");
     }
 
 
 
     public <T> List<T> testSaveBean(){
-
         String sql = "select id , userid  ,vodid as videoid ,kankeid from t_userhistory where id > ? order by id asc" ;
         Object[] params = new Object[1];
         params[0]=0;
