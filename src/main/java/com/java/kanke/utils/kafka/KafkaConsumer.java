@@ -46,6 +46,8 @@ public class KafkaConsumer {
     }
 
     public static void main(String[] args) {
-        new KafkaConsumer().consume();
+        ConsumerIterator<String,String> it = new KafkaConsumer().consume();
+        while (it.hasNext())
+            System.out.println(it.next().message());
     }
 }

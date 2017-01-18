@@ -65,7 +65,7 @@ public class KafkaProducer
         void produce1(String json ){
         KeyedMessage keyedMessage = new KeyedMessage("test", "messageKey", json);
         producer.send(keyedMessage);
-        producer.close() ;
+//        producer.close() ;
     }
 
     public static void main( String[] args )
@@ -75,7 +75,7 @@ public class KafkaProducer
         List<TestBean> tlist = kafkaProducer.testSaveBean();
         for(TestBean t:tlist){
             Gson gson = new Gson();
-            kafkaProducer.produce1(gson.toJson(t));
+            kafkaProducer.produce1("456");
         }
 
         System.out.println("完成！");

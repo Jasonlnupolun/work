@@ -89,9 +89,7 @@ class MixServerImpl {
       for (ca <- caseids if !historyidSet.contains(ca.id)) {
         //设置影片的权重，公式为相似度×（1+簇权重）×（1+年代权重×年代）
         val tmpid = ca.id
-
         val tmptypename = tmpid.substring(0,tmpid.indexOf("_"))
-
         val array = Jedis.getMixJedis(tmptypename,ca.id)
         if(array!=null){
           val tmpArray = array.split(";");

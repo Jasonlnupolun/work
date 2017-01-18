@@ -1,5 +1,7 @@
 package com.scala.kanke.utils
 
+import java.io.File
+
 import com.java.kanke.utils.PropertyUtil
 import com.typesafe.config.{ConfigFactory, Config}
 
@@ -8,6 +10,12 @@ import com.typesafe.config.{ConfigFactory, Config}
   */
 object ConfigUtils {
 
-  val config: Config = ConfigFactory.load
+  val path = System.getProperty("user.dir")+File.separator+"conf"+File.separator;
+  def apply(tpath:String)=ConfigFactory.parseFile(new File(path+tpath))
+
+  def main(args: Array[String]) {
+   println(ConfigUtils("class.properties").getString("cartoon"))
+  }
+
 
 }
