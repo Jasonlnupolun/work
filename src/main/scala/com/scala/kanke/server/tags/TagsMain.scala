@@ -17,6 +17,7 @@ object TagsMain {
   //存在返回相应的聚类，不存在返回默认的推荐结果
   val default = service.getOrDefault
   def main(args: Array[String]) {
+
     while (true) {
       val users = dao.queryAllUserId()
       for (u <- users) {
