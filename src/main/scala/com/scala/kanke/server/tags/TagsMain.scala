@@ -1,8 +1,6 @@
 package com.scala.kanke.server.tags
 
-import com.google.gson.Gson
-import com.scala.kanke.common.{ConfigMix, TagConfigClass, Constant}
-import com.scala.kanke.dao.DaoImpl
+import com.scala.kanke.common.{TagsConstant, ConfigMix, TagConfigClass}
 import com.scala.kanke.utils.Jedis
 import org.apache.log4j.Logger
 
@@ -11,8 +9,9 @@ import org.apache.log4j.Logger
   */
 object TagsMain {
   val log = Logger.getLogger(getClass)
-  Constant.allGraph
-  val dao = new DaoImpl
+  TagsConstant.allGraph
+  val datamap = TagsConstant.dataMap
+  val dao = TagsConstant.dao
   val service = new TagClassServerImpl()
   //存在返回相应的聚类，不存在返回默认的推荐结果
   val default = service.getOrDefault

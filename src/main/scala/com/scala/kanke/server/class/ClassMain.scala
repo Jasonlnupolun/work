@@ -1,7 +1,7 @@
 package com.scala.kanke.server
 
 import com.google.gson.Gson
-import com.scala.kanke.common.{ConfigClass, ConfigMix, Constant}
+import com.scala.kanke.common.{ClassConstant, ConfigClass}
 import com.scala.kanke.dao.DaoImpl
 import com.scala.kanke.utils.Jedis
 import org.apache.log4j.Logger
@@ -10,7 +10,7 @@ import org.apache.log4j.Logger
   */
 object ClassMain {
   val log = Logger.getLogger(getClass)
-  Constant.mapGraph
+  ClassConstant.mapGraph
   val dao = new DaoImpl
   val service = new ClassServerImpl()
   //存在返回相应的聚类，不存在返回默认的推荐结果
@@ -29,7 +29,7 @@ object ClassMain {
           Jedis.putJedis(ConfigClass.prefix+k,u.toString,json);
           }
       }
-      Thread.sleep(ConfigMix.time)
+      Thread.sleep(1000*60*5)
     }
   }
 

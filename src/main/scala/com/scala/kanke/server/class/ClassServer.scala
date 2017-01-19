@@ -4,7 +4,7 @@ import com.java.kanke.utils.bean.{Video, UserHistory}
 import com.scala.kanke.arg.canopy.{VideoVector, CanopyBuilder, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{Knn, FeatureBean, Vectoriza}
-import com.scala.kanke.common.{ConfigClass, Constant}
+import com.scala.kanke.common.{ClassConstant, ConfigClass, Constant}
 import com.scala.kanke.service.{ClassServiceImpl, UserHistoryService}
 import org.apache.log4j.Logger
 import scala.collection.mutable.ArrayBuffer
@@ -99,7 +99,7 @@ class ClassServerImpl extends  ClassServer{
     val listKnnResult = canopys.map(k=>{
       k.computeTags() //计算下标签
       val n = k.points.size*10
-      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.mapGraph(typename),n,ids),k.getWeight)
+      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,ClassConstant.mapGraph(typename),n,ids),k.getWeight)
     })
     listKnnResult
   }

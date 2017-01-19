@@ -5,7 +5,7 @@ import com.java.kanke.utils.bean.{UserHistory, Video}
 import com.scala.kanke.arg.canopy.{CanopyBuilder, VideoVector, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{Knn, Vectoriza, FeatureBean}
-import com.scala.kanke.common.{ConfigClass, Constant}
+import com.scala.kanke.common.{TagsConstant, Constant}
 import com.scala.kanke.service.{UserHistoryService, TagClassServiceImpl}
 import org.apache.log4j.Logger
 
@@ -28,8 +28,6 @@ class TagClassServerImpl extends TagClassServer{
   def getOrDefault():List[Video]={
     tagclassService.queryDefaultVideo()
   }
-
-
 
 
   def  startServerTags(userHistory:List[UserHistory]):String={
@@ -56,15 +54,10 @@ class TagClassServerImpl extends TagClassServer{
         tagTemp ++= label
         val labelidsArray = i.knnResult.map(x=>x.id).diff(knndiffid)
         knndiffid ++= labelidsArray
-
-        for(la<-labelidsArray){
-          println(TagsMain.datamap.get(la))
-        }
-
+//        for(la<-labelidsArray){
+//          println(TagsMain.datamap.get(la))
+//        }
         val labelids = labelidsArray.mkString(";")                //推荐结果的id
-
-
-
         labelMap.put(labeltag,labelids)
       }
     }
@@ -79,7 +72,7 @@ class TagClassServerImpl extends TagClassServer{
     val listKnnResult = canopys.map(k=>{
       k.computeTags() //计算下标签
       val n = k.points.size*10
-      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,Constant.allGraph,n,ids),k.getWeight)
+      CanopyTagData(k.getTags, Knn.searchIdsByVector(k.getCenter.x,TagsConstant.allGraph,n,ids),k.getWeight)
     })
     listKnnResult
   }

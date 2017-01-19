@@ -4,7 +4,7 @@ import com.java.kanke.utils.bean.UserHistory
 import com.scala.kanke.arg.canopy.{CanopyBuilder, VideoVector, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{FeatureBean, Knn, Vectoriza}
-import com.scala.kanke.common.Constant
+import com.scala.kanke.common.{MixConstant, Constant}
 import com.scala.kanke.service.{ClassServiceImpl, UserHistoryService}
 import com.scala.kanke.utils.Jedis
 import org.apache.log4j.Logger
@@ -31,7 +31,7 @@ class MixServerImpl {
         val userhistoryids = Jedis.getHistoryVideoIds(bean.getUserid,bean.getVideoid)
         // 取用户历史纪录的代表
         // 根据代表找相似的影片
-        val caseids = Knn.searchIds(beanFeature,Constant.mapGraph("tv"),10)
+        val caseids = Knn.searchIds(beanFeature,MixConstant.mapGraph("tv"),10)
         logger.info("查找到的相似影片："+caseids)
 //        //去重复
 //        val historysets =""
@@ -84,7 +84,7 @@ class MixServerImpl {
     val knnMap = scala.collection.mutable.Map[String,Double]()
     for(i<-canopys) {
       val k = i.points.size * 10
-      val caseids = Knn.searchIdsByCanopy(i, Constant.mapGraph(typename), k)
+      val caseids = Knn.searchIdsByCanopy(i, MixConstant.mapGraph(typename), k)
       //添加权重  &  过滤掉观看过的历史数据
       for (ca <- caseids if !historyidSet.contains(ca.id)) {
         //设置影片的权重，公式为相似度×（1+簇权重）×（1+年代权重×年代）

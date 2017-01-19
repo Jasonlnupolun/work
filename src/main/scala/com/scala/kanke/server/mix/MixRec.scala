@@ -1,6 +1,6 @@
 package com.scala.kanke.server.mix
 
-import com.scala.kanke.common.{ConfigClass, ConfigMix, Constant}
+import com.scala.kanke.common.{MixConstant, ConfigClass, ConfigMix, Constant}
 import com.scala.kanke.dao.DaoImpl
 import com.scala.kanke.server.mix.MixMain._
 import com.scala.kanke.utils.Jedis
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger
 class MixRec {
 
   val logger = Logger.getLogger(getClass)
-  Constant.mapGraph
+  MixConstant.mapGraph
   val dao = new DaoImpl
   val service = new MixServerImpl()
   val VideoMap =redisSave
