@@ -47,6 +47,7 @@ object MRApplication {
     Thread.sleep(2000)
     master ! new Result
     Thread.sleep(2000)
+
     _system.awaitTermination()
   }
 
