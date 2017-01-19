@@ -38,13 +38,16 @@ class TagClassServerImpl extends TagClassServer{
     //2.根据用户的历史进行聚类
     val canopys = doCanopy(userVideolist)
     //3.根据聚类的中心向量进行knn  并进行去重复
-    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(100)
+    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(10)
+    log.info("聚类个数："+knnResult.size)
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
-    var tagTemp = scala.collection.mutable.Set[String]() // 使簇内影片不重复
+    var tagTemp = ArrayBuffer[String]() // 使簇内影片不重复
+
     var labelMap = new java.util.LinkedHashMap[String,String]() // 使簇内影片不重复
     var knndiffid = new ArrayBuffer[String]()
+
     for(i<-knnResult){
-      val label = i.tagsString.diff(ConfigClass.labelremove).take(2).toSet
+      val label = i.tagsString.take(2)
       val labeltag =label.diff(tagTemp).mkString(" ")
       // 每个聚类中心knn出的结果需要进行去重复
       if(labeltag!=""){
@@ -74,8 +77,16 @@ class TagClassServerImpl extends TagClassServer{
   //根据类型查看历史
   override def getuserHisttory(userHistory:List[UserHistory]):List[FeatureBean]={
     //根据用户历史  查全信息量
-    val listvideo = userHistoryService.userHistoryToVideo(userHistory)
-    listvideo.toList
+    userHistory.map(x=>{
+      val video = new  Video()
+      video.setUserid(x.getUserid)
+      video.setKankeid(x.getKankeid)
+      video.setTags(x.getTags)
+      video.setVideotype(x.getTypename)
+      video.setYear(x.getYear)
+      video.setRegion(x.getRegion)
+      Vectoriza.transferFeatureBean(video,Constant.coordinate)
+    })
   }
 
   def doCanopy(featureBeans:List[FeatureBean]):ArrayBuffer[Canopy]={
