@@ -20,6 +20,34 @@ public class UserHistory implements Serializable {
 	private String typename;
 	private String title;
 	private String addtime;
+	private String tags;
+	private String year ;
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	private String region;
 	public String getId() {
 		return id;
 	}

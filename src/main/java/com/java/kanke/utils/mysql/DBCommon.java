@@ -152,6 +152,34 @@ public class DBCommon {
         return map ;
     }
 
+    public static Map<String, Map<String, Object>> queryMapList(String sql, Object[] params){
+        QueryRunner runner = DBCommon.getQueryRunnerMysql();
+        Map<String, Map<String, Object>> rs = new HashMap<String, Map<String, Object>>() ;
+        try {
+            logger.info("sql--->"+sql);
+             rs = runner.query(sql, new KeyedHandler<String>("id"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs ;
+    }
+
+    public static <T> Map<Integer, T> queryMapList(String sql, Object[] params,Class clazz){
+        QueryRunner runner = DBCommon.getQueryRunnerMysql();
+        // new BeanMapHandler<Integer, Users>(Users.class,"id")
+        Map<Integer, T> rs = new HashMap<Integer,T>();
+        try {
+            logger.info("sql--->"+sql);
+            rs = runner.query(sql, new BeanMapHandler<Integer, T>(clazz,1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs ;
+    }
+
+
+
+
 
     public static <T>List<T> queryColumnListHandler(String sql,String tags,Object[] params) throws SQLException{
         QueryRunner runner = DBCommon.getQueryRunnerMysql();
