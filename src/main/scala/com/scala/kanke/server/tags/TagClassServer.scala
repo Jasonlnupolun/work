@@ -30,6 +30,8 @@ class TagClassServerImpl extends TagClassServer{
   }
 
 
+
+
   def  startServerTags(userHistory:List[UserHistory]):String={
     //1，根据簇内影片数量过滤分类推荐结果
     //1.查看用户的历史 转换为向量的 bean
@@ -54,7 +56,15 @@ class TagClassServerImpl extends TagClassServer{
         tagTemp ++= label
         val labelidsArray = i.knnResult.map(x=>x.id).diff(knndiffid)
         knndiffid ++= labelidsArray
-        val labelids = labelidsArray.mkString(";")
+
+        for(la<-labelidsArray){
+          println(TagsMain.datamap.get(la))
+        }
+
+        val labelids = labelidsArray.mkString(";")                //推荐结果的id
+
+
+
         labelMap.put(labeltag,labelids)
       }
     }
