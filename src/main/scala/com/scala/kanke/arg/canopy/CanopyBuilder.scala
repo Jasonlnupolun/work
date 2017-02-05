@@ -6,8 +6,8 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Administrator on 2016/11/21.
   */
 object CanopyBuilder {
-  private var T1: Double = 0.2
-  private var T2: Double = 0.3    // 三个最后标签相同的距离是0.19
+  private var T1: Double = 0.5
+  private var T2: Double = 0.8    // 三个最后标签相同的距离是0.19
   var points: ArrayBuffer[VideoVector] = null
   var canopies: ArrayBuffer[Canopy] = null
 

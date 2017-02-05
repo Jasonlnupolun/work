@@ -17,16 +17,23 @@ class UserHistoryService extends  UserService{
   def userHistoryToVideo(bean:UserHistory):  List[Video] ={
     //根据历史记录，查全信息
     val video = new Video
-
     val listvideo = List(video)
     listvideo
   }
 
-
   // 查询历史构建特征向量
   def userHistoryToVideo(bean:List[UserHistory]):  Seq[FeatureBean] ={
     //根据历史记录，查全信息
-    bean.map(dao.queryKankeFeaturById)
+    bean.map(x=>{
+      val video = new  Video()
+      video.setUserid(x.getUserid)
+      video.setKankeid(x.getKankeid)
+      video.setTags(x.getTags)
+      video.setVideotype(x.getTypename)
+      video.setYear(x.getYear)
+      video.setRegion(x.getRegion)
+      Vectoriza.transferFeatureBean(video,Constant.coordinate)
+    })
   }
 
 

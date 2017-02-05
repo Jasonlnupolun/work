@@ -1,18 +1,18 @@
 package com.scala.kanke.dao
 
+import java.util
+
 import com.java.kanke.utils.bean.{UserHistory, Video}
 import com.java.kanke.utils.mysql.DBCommon
 import com.scala.kanke.arg.knn.{Vectoriza, FeatureBean}
-import com.scala.kanke.bean.EsBean
 import com.scala.kanke.common.{TagConfigClass, ConfigMix, Constant}
-import com.scala.kanke.utils.ConfigUtils
 import org.apache.log4j.Logger
 /**
   * Created by Administrator on 2016/11/11.
   */
 
 trait Dao {
-  val coordinates:Array[String]
+
   def queryKankeFeaturById(userHistory:UserHistory): FeatureBean
   def querytags(sql:String):Array[String]
   def queryOrgion(sql:String):Array[String]
@@ -27,10 +27,11 @@ trait Dao {
   def findAll():List[Video]
   def queryHistoryByUserId(userid: String): List[UserHistory]
   def queryDistrict:java.util.Map[String,String]
+  def queryMapDate:util.Map[String, util.Map[String,Object]]
 }
 
-class ElasSql extends  Dao{
-  override val coordinates: Array[String] = null
+abstract class ElasSql extends  Dao{
+
 
   override def findByType(userid: String): List[Video] = ???
 
@@ -58,7 +59,7 @@ class ElasSql extends  Dao{
 
   override def queryAllUserId(): List[String] = ???
 
-  override def queryDistrict: java.util.Map[String, String] = ???
+  override def queryDistrict: java.util.Map[String,String] = ???
 }
 
 class DaoImpl extends  Dao{
@@ -160,8 +161,6 @@ class DaoImpl extends  Dao{
     regionSet.toArray
   }
 
-  override val coordinates: Array[String] = querytags("")
-
   // 更新iti
   override def update(table: String, array: Array[Object]): Unit = {
     val sql = " insert into iti"+table+" (idname,idlist) values(?,?)"
@@ -197,6 +196,8 @@ class DaoImpl extends  Dao{
   }
 
   override def queryDistrict: java.util.Map[String, String] = ???
+
+  override def queryMapDate: util.Map[String, util.Map[String,Object]] = ???
 }
 
 

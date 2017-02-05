@@ -61,7 +61,7 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
 object Vectoriza {
   implicit def featureBeanToVideoVector(featureBean: FeatureBean):VideoVector={
     var videoVector =new VideoVector(featureBean.getKankeid,featureBean.getTags)
-    videoVector.setTags(featureBean.getTagsString.split(";") diff ConfigClass.labelremove)
+    videoVector.setTags(featureBean.getTagsString.split(";").take(5) diff ConfigClass.labelremove)
     videoVector
   }
 

@@ -26,8 +26,12 @@ class Canopy {
   }
   //计算簇内的标签
   def computeTags(limit:Int = 3) : Unit ={
-      this.weight = points.size
-      val tags = points.flatMap(_.getTags).groupBy(x=>x).map(x =>x._1->x._2.size).toArray.sortWith(_._2>_._2).take(limit)
+    this.weight = points.size
+     val tags =if(points.size<2){
+       points(0).getTags.take(limit).groupBy(x=>x).map(x =>x._1->x._2.size).toArray
+      }else{
+       points.flatMap(_.getTags).groupBy(x=>x).map(x =>x._1->x._2.size).toArray.sortWith(_._2>_._2).take(limit)
+     }
       if(tags.isEmpty){
         this.tags  = Array("其他")
       }else{
