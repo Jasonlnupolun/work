@@ -26,7 +26,7 @@ trait Dao {
   def queryAllYears():Map[String,String]
   def findAll():List[Video]
   def queryHistoryByUserId(userid: String): List[UserHistory]
-  def queryDistrict:java.util.Map[String,String]
+  def queryDistrict:java.util.Map[String,java.util.Map[String,String]]
   def queryMapDate:util.Map[String, util.Map[String,Object]]
 }
 
@@ -59,7 +59,7 @@ abstract class ElasSql extends  Dao{
 
   override def queryAllUserId(): List[String] = ???
 
-  override def queryDistrict: java.util.Map[String,String] = ???
+  override def queryDistrict: java.util.Map[String,java.util.Map[String,String]] = ???
 }
 
 class DaoImpl extends  Dao{
@@ -195,9 +195,9 @@ class DaoImpl extends  Dao{
     videoBean.toMap
   }
 
-  override def queryDistrict: java.util.Map[String, String] = ???
+  override def queryDistrict: java.util.Map[String, java.util.Map[String,String]] = ???
 
-  override def queryMapDate: util.Map[String, util.Map[String,Object]] = ???
+  override def queryMapDate: java.util.Map[String, java.util.Map[String,Object]] = ???
 }
 
 
@@ -205,8 +205,7 @@ class MixDaoImpl extends  DaoImpl{
 
       override  def queryDistrict={
         val sql = ConfigMix.district
-        import collection.JavaConversions._
-        DBCommon.queryMap(sql,null).asInstanceOf[java.util.Map[String,String]]
+        DBCommon.queryMapList(sql,null).asInstanceOf[java.util.Map[String,java.util.Map[String,String]]]
       }
 
 }

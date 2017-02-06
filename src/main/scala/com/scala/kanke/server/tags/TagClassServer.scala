@@ -38,7 +38,7 @@ class TagClassServerImpl extends TagClassServer{
     //2.根据用户的历史进行聚类
     val canopys = doCanopy(userVideolist)
     //3.根据聚类的中心向量进行knn  并进行去重复
-    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(10)
+    val knnResult = getKnnResult(canopys,historyIds).sortWith(_.clusterweight>_.clusterweight).take(100)
     log.info("聚类个数："+knnResult.size)
     //4.遍历所有的簇  获取影片簇的标签  设置该簇的权重和影片的数量
     var tagTemp = ArrayBuffer[String]() // 使簇内影片不重复

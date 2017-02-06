@@ -13,7 +13,6 @@ import com.scala.kanke.server.mix.MixServerImpl
 import com.scala.kanke.server.tags.TagClassServerImpl
 import com.scala.kanke.utils.Jedis
 import org.apache.log4j.Logger
-import scala.collection.JavaConverters._
 /**
   * Created by Administrator on 2017/1/19.
   */
@@ -35,25 +34,29 @@ object Server {
   val typ:Type= new TypeToken[java.util.LinkedHashMap[String, String]](){}.getType()
   def main(args: Array[String]) {
     while (true) {
-      val users = tagdao.queryAllUserId()
+      val users =
+        tagdao.queryAllUserId()
       for (u <- users) {
+        val areaids = MixConstant.district.get("nanjingshi").get("kankeids").split(",")
         val mixresult = runAllMix(u)
-        val tagsresult = runAllTags(u)
-        val mainMixResult = mixresult.split(";").take(6)
+
+        val mixclear = mixresult.split(";") intersect areaids
+        val mainMixResult = mixclear.take(6)
+        logger.info("过滤后的mix 推荐"+gson.toJson(mainMixResult))
         // json 转换出现问题
 //        val tagsMap = gson.fromJson(tagsresult,typ)
-        val tagsArray = tagsresult.replace("{|}","").split(",")
+        val tagsresult = runAllTags(u)
+        val tagsArray = tagsresult.replaceAll("[\\{\\}]","").split(",") intersect areaids
         val linkmap = new util.LinkedHashMap[String,String]()
         // 排除 混合推荐出现的六个数据
-        for(i <- tagsArray){
+        for(i <- tagsArray if !i.isEmpty){
           val clusterClass = i.split(":")
-          print(clusterClass)
           val namelabel = clusterClass(0)
           var valuelabel = clusterClass(1).split(";")
           valuelabel = valuelabel.diff(mainMixResult)
           linkmap.put(namelabel,valuelabel.mkString(";"))
         }
-        println(linkmap)
+        logger.info("标签去重："+gson.toJson(linkmap))
       }
       Thread.sleep(ConfigMix.time)
     }

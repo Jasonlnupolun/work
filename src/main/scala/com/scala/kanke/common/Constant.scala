@@ -36,7 +36,7 @@ object MixConstant{
   val regions = dao.queryOrgion("")
   val coordinate = (tags++regions) diff ConfigClass.labelremove
   import scala.collection.JavaConversions._
-  val district = dao.queryDistrict.map(x=>(x._1,x._2.split(",")))
+  val district = dao.queryDistrict
   val mapGraph = list.map(x=>(x,
     Knn.knnGraph(1000,new Vectoriza(dao.findByType(x),coordinate).vectorizer())
     )).toMap

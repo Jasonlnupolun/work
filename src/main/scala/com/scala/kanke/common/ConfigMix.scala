@@ -24,7 +24,5 @@ object ConfigMix {
   val initsavereids = tool.getString("initsavereids")
   val district = tool.getString("districtsql")
 
-  def main(args: Array[String]) {
-    print(district)
-  }
+
 }
