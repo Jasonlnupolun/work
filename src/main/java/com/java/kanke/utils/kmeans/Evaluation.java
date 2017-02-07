@@ -26,10 +26,10 @@ public class Evaluation {
     public void evaluateClustering(int K) {
         try {
             Kmeans c = (Kmeans) Class.forName("kmeans." + clsName).newInstance();
-
             double[][] features = dataset.getFeatures();
             double[][] clusterCenters = new double[K][dataset.getNumAttributes()];
             int[] clusterIndex = new int[dataset.getNumInstnaces()];
+
             c.train(features, K, clusterCenters, clusterIndex);
 
             double sum = 0;

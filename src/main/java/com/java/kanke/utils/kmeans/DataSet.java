@@ -10,10 +10,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author daq
- */
 public class DataSet {
 
     private boolean[] isCategory;
@@ -63,40 +59,19 @@ public class DataSet {
 
     public DataSet(String path,String typename) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-
-            String[] attInfo = reader.readLine().split(","); // attributes info
-            numAttributes = attInfo.length - 1;
+            // 从数据库中取出特征的个数
+            numAttributes = 0;
             isCategory = new boolean[numAttributes + 1];
-            for (int i = 0; i < isCategory.length; i++) {
-                isCategory[i] = Integer.parseInt(attInfo[i]) == 1 ? true : false;
-            }
 
+            // 从数据库中取出数据的个数
             numInstnaces = 0;
-            while (reader.readLine() != null) {
-                numInstnaces++;
-            }
-
-            features = new double[numInstnaces][numAttributes];
+            // 二维的样本点个数
+            features = new double[numInstnaces][numAttributes];   // 样本点的个数
+            // 标签
             labels = new double[numInstnaces];
             System.out.println("reading " + numInstnaces + " exmaples with " + numAttributes + " attributes");
 
-            reader = new BufferedReader(new FileReader(path));
-            reader.readLine();
-            String line;
-            int ind = 0;
-            while ((line = reader.readLine()) != null) {
-                String[] atts = line.split(",");
-                for (int i = 0; i < atts.length - 1; i++) {
-                    features[ind][i] = Double.parseDouble(atts[i]);
-                }
-                labels[ind] = Double.parseDouble(atts[atts.length - 1]);
-                ind++;
-            }
-            reader.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataSet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(DataSet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

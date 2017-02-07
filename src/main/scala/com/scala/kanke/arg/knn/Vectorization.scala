@@ -49,7 +49,7 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
     featureBean.setVideoid(metaSourceBean.getVideoid)
     featureBean.setChannelid(metaSourceBean.getChannelid)
     featureBean.setTags(tagsVector)
-    featureBean.setRegion(tagsVector)
+//    featureBean.setRegion(tagsVector)
     featureBean.setYear(0)
     featureBean.setPlaycount(0)
     featureBean

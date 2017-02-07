@@ -24,7 +24,7 @@ public class Kmeans {
 		if (numIns == 0) return;
 		int numAtt = features[0].length;
 
-		kill_missing_data(features, numIns, numAtt);
+//		kill_missing_data(features, numIns, numAtt);
 
 		//随机初始化中心点
 		Random random = new Random();
