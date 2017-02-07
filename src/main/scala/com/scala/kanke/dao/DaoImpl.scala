@@ -107,7 +107,6 @@ class DaoImpl extends  Dao{
 
   //查找所用用户的id
   override  def queryAllUserId():List[String]={
-
     import collection.JavaConversions._
     val kankeids  = DBCommon.queryColumnListHandler(ConfigMix.useridsql,"userid",null)
     kankeids.toList

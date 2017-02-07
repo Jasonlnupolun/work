@@ -39,20 +39,19 @@ object Server {
       for (u <- users) {
         val areaids = MixConstant.district.get("nanjingshi").get("kankeids").split(",")
         val mixresult = runAllMix(u)
-
         val mixclear = mixresult.split(";") intersect areaids
         val mainMixResult = mixclear.take(6)
         logger.info("过滤后的mix 推荐"+gson.toJson(mainMixResult))
         // json 转换出现问题
 //        val tagsMap = gson.fromJson(tagsresult,typ)
         val tagsresult = runAllTags(u)
-        val tagsArray = tagsresult.replaceAll("[\\{\\}]","").split(",") intersect areaids
+        val tagsArray = tagsresult.replaceAll("[\\{\\}]","").split(",")
         val linkmap = new util.LinkedHashMap[String,String]()
         // 排除 混合推荐出现的六个数据
         for(i <- tagsArray if !i.isEmpty){
           val clusterClass = i.split(":")
-          val namelabel = clusterClass(0)
-          var valuelabel = clusterClass(1).split(";")
+          val namelabel = clusterClass(0).replaceAll("\"","")
+          var valuelabel = clusterClass(1).split(";")  intersect areaids
           valuelabel = valuelabel.diff(mainMixResult)
           linkmap.put(namelabel,valuelabel.mkString(";"))
         }
