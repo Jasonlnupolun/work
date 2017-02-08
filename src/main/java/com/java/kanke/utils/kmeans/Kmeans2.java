@@ -3,6 +3,8 @@ package com.java.kanke.utils.kmeans;
 import java.util.ArrayList;
 import java.util.Random;
 
+//http://www.cnblogs.com/zhangchaoyang/articles/2181869.html
+
 public class Kmeans2 {
 
 	//FIELDS
@@ -91,7 +93,7 @@ public class Kmeans2 {
 			for (int j = 0; j < clustSize; j++) {
 				double[] elem = clusters[i].get(j);
 				for (int k = 0; k < dataDim; k++) {
-					Math.pow( (Double)elem[k] - getClusterCenters()[i][k], 2);
+					Math.pow( elem[k] - getClusterCenters()[i][k], 2);
 				}
 			}
 			clusterVars[i] = sum / clustSize;
