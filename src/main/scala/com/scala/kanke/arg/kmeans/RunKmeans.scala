@@ -107,9 +107,24 @@ object RunKmeans {
     }
   }
 
-  def main(args: Array[String]) {
+
+  def calculateClusters: Unit = {
 
   }
+
+  //计算新旧中心之间的距离，当距离小于阈值时，聚类算法结束
+
+
+  def main(args: Array[String]) {  //小于阈值时，结束循环
+      if (epsilon == 0){
+
+      }else {     //否则，新的中心来代替旧的中心，进行下一轮迭代
+
+      }
+  }
+
+
+  //输出最后聚类结果
 
 
 }
