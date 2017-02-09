@@ -26,13 +26,6 @@ class Centroid[T <: Double](val vals: Array[T]) extends DataPoint[T](vals, -1) {
   }
 }
 
-/**
-  * <p>Implements a cluster of data point with centroid for the KMeans
-  * algorithm. A cluster is composed of a centroid, a list of data point and
-  * an index.</p>
-  * @author Patrick Nicolas
-  * @date 12.19.2011
-  */
 import scala.collection.mutable.ArrayBuffer
 class KMeansCluster[T <: Double](val index: Int,
                                  val values: Array[T],
