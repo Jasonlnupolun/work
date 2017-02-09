@@ -14,10 +14,7 @@ import scala.collection.JavaConversions
   */
 case class ESClient(client:Client) {
   val logger = Logger.getLogger(getClass)
-
   var searchDao = new SearchDao(client)
-
-
   def query[T](eSJob:ESJob[T],classType:Class[T]): Seq[T] ={
     val sql = eSJob.getSql
     val select = searchDao.explain(sql).explain()

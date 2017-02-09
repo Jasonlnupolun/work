@@ -160,8 +160,10 @@ class FeatureBean {
   @BeanProperty var tagsString:String=""
   @BeanProperty var tags:DenseVector[Double]=null
   @BeanProperty var region:DenseVector[Double]=null
-  @BeanProperty var year:Double =0
+  @BeanProperty var year:String =null
   @BeanProperty var playcount:Double=0
+  @BeanProperty var videotype:String=null
+  @BeanProperty var areaname:String=null
 //  @BeanProperty var mark: Int = FeatureBean.MARK_NULL
   override def toString:String={
     super.toString

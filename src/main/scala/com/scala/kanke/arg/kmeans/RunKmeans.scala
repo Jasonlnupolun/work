@@ -5,6 +5,7 @@ import java.util.Random
 
 import breeze.linalg.{DenseVector, sum}
 import breeze.numerics.abs
+import com.google.gson.Gson
 import com.scala.kanke.arg.knn.{FeatureBean, Vectoriza, Knn}
 import com.scala.kanke.dao.DaoImpl
 import org.netlib.blas.Sasum
@@ -15,9 +16,6 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Administrator on 2017/2/7.
   */
 object RunKmeans {
-
-
-
 
   //读去数据，配置初始化数据
   val dao = new DaoImpl
@@ -32,6 +30,8 @@ object RunKmeans {
   private var clusterCenters: Array[FeatureBean] = null    // 聚类中心
   private var numClusters :Int =0
   private var epsilon: Double = .0   // 阀值
+
+  private val gson = new Gson()
 
   def getFeatures():List[FeatureBean]={
     val features= new Vectoriza(dao.findAll,tags++regions).vectorizer()
@@ -102,7 +102,6 @@ object RunKmeans {
   // 更新中心距离
   import scala.collection.JavaConversions._
   private def calculateClusterCenters:Unit = {
-
     var i: Int = 0
     while (i < numClusters) {
       var sum = DenseVector.zeros[Double](dataattr)
@@ -130,6 +129,7 @@ object RunKmeans {
   }
 
 
+  // 循环进行计算
   def calculateClusters: Unit = {
 //    var var1: Double = Double.MaxValue
 //    var var2: Double = .0
@@ -152,17 +152,27 @@ object RunKmeans {
     // 初始化k值的个数，中心点的位置
     RunKmeans.init(20)
     calculateClusters  // 聚类逻辑
-    printCluster       // 保存输出结果
+    saveDataToElast       // 保存输出结果
   }
 
+  //保存数据到elastic中
+  case class ElasticBean(id:String, tags: String, videotype: String,areaname:String,year:String ,clusterid:Int)
+  def saveDataToElast():Unit={
+    var temp:Int=0
+    for(i<- clusters){
+      for(j<-i){
+        val a = gson.toJson(ElasticBean(j.getKankeid,j.getTagsString,j.getVideotype,j.areaname,j.getYear.toString,temp))
+        println(a)
+      }
+      temp = temp + 1
+    }
+  }
 
   //输出最后聚类结果
   def printCluster():Unit={
-
     println("类别个数"+ clusters.size)
     for(i<- clusters){
       println("类别："+i.size())
-
       for(j<-i){
         println(j.getTagsString)
       }

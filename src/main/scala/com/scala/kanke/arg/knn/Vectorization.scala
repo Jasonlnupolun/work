@@ -50,8 +50,10 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
     featureBean.setChannelid(metaSourceBean.getChannelid)
     featureBean.setTags(tagsVector)
     featureBean.setTagsString(metaSourceBean.getTags)
+    featureBean.setVideotype(metaSourceBean.getVideotype)
+    featureBean.setAreaname(metaSourceBean.getRegion)
 //    featureBean.setRegion(tagsVector)
-    featureBean.setYear(0)
+    featureBean.setYear(metaSourceBean.getYear)
     featureBean.setPlaycount(0)
     featureBean
   }
@@ -108,7 +110,7 @@ object Vectoriza {
     featureBean.setChannelid(metaSourceBean.getChannelid)
     featureBean.setTags(tagsVector)
     featureBean.setRegion(tagsVector)
-    featureBean.setYear(0)
+//    featureBean.setYear()
     featureBean.setPlaycount(0)
     featureBean
   }
