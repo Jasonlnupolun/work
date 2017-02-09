@@ -25,7 +25,7 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
     var k = 0
     if(metaSourceBean.getTags!=null){
       // 向量化标签
-      for(i<- metaSourceBean.getTags.split(";")){
+      for(i<- metaSourceBean.getTags.split(";").take(5)){
         val index = coordinates.indexOf(i)
         if(index> -1){
           if(k<2 ) tagsVector(index) = 1.4
@@ -49,6 +49,7 @@ class Vectoriza(videos: List[Video],coordinates:Array[String]) extends Vectoriza
     featureBean.setVideoid(metaSourceBean.getVideoid)
     featureBean.setChannelid(metaSourceBean.getChannelid)
     featureBean.setTags(tagsVector)
+    featureBean.setTagsString(metaSourceBean.getTags)
 //    featureBean.setRegion(tagsVector)
     featureBean.setYear(0)
     featureBean.setPlaycount(0)

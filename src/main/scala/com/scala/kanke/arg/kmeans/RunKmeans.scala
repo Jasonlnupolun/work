@@ -1,10 +1,13 @@
 package com.scala.kanke.arg.kmeans
 
+import java.util
 import java.util.Random
 
 import breeze.linalg.{DenseVector, sum}
+import breeze.numerics.abs
 import com.scala.kanke.arg.knn.{FeatureBean, Vectoriza, Knn}
 import com.scala.kanke.dao.DaoImpl
+import org.netlib.blas.Sasum
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -25,8 +28,8 @@ object RunKmeans {
   val datasize = getFeatures().size
   val dataattr = tags ++ regions length
 
-  private var clusters: ArrayBuffer[java.util.ArrayList[FeatureBean]] = null  //  存放聚类的结果
-  private var clusterCenters: ArrayBuffer[FeatureBean] = null    // 聚类中心
+  private var clusters: Array[java.util.ArrayList[FeatureBean]] = null  //  存放聚类的结果
+  private var clusterCenters: Array[FeatureBean] = null    // 聚类中心
   private var numClusters :Int =0
   private var epsilon: Double = .0   // 阀值
 
@@ -38,16 +41,23 @@ object RunKmeans {
   def init(k:Int):Unit={
     numClusters = k
     randomizeCenters(k, dataset)
+    clusters = new Array[util.ArrayList[FeatureBean]](numClusters)
+    for(i<- 0 until numClusters)
+    clusters.update(i,new util.ArrayList[FeatureBean])
   }
 
   //随机的进行初始化中心点
   private def randomizeCenters(numClusters: Int, data: List[FeatureBean]) {
+    clusterCenters = new Array[FeatureBean](numClusters)
     val rk: Random = new Random
     var i: Int = 0
     while (i < numClusters) {
       val rand = rk.nextInt(datasize)
-        clusterCenters(i) = data(rand)
+        clusterCenters.update(i,data(rand))
         i += 1;
+    }
+    for(i<-clusterCenters){
+      println("中心点:"+i.getTagsString)
     }
   }
 
@@ -72,33 +82,45 @@ object RunKmeans {
         }
       }
       clusters(clust).add(dataset(i))
+      clust=0
+      dist=Double.MaxValue
+      newdist=0.0
+    }
+
+    for(i<-clusters){
+      println("分类个数："+i.size)
     }
   }
 
   //计算点与中心点的距离
   def distToCenter(datum: FeatureBean, j: FeatureBean):Double={
     var sumValue: Double = 0d
-    sumValue = sum(datum.getTags - j.getTags)
-    Math.sqrt(sumValue)
+    sumValue = sum(abs(datum.getTags - j.getTags))
+    sumValue
   }
 
   // 更新中心距离
   import scala.collection.JavaConversions._
   private def calculateClusterCenters:Unit = {
-    var sum = DenseVector.zeros[Double](dataattr)
+
     var i: Int = 0
     while (i < numClusters) {
+      var sum = DenseVector.zeros[Double](dataattr)
       val cluster = clusters(i)
       for(j <- cluster){
-        sum = sum + cluster.get(i).getTags
+        sum = sum + j.getTags
       }
       val clusterbean = new FeatureBean
-       clusterbean.setTags(sum / cluster.size().toDouble)
-      clusterCenters(i)= clusterbean
+       clusterbean.setTags(sum / (cluster.size()+1).toDouble)
+      clusterCenters.update(i,clusterbean)
       i=i+1
     }
   }
 
+
+  def calculateClusterVars :Unit={
+
+  }
 
   //设置阀值
   def setEpsilon(epsilon: Double) {
@@ -109,22 +131,45 @@ object RunKmeans {
 
 
   def calculateClusters: Unit = {
-
+//    var var1: Double = Double.MaxValue
+//    var var2: Double = .0
+//    var delta: Double = .0
+    var i :Int = 0
+    do{
+      divideCluster
+      calculateClusterCenters
+      calculateClusterVars
+      i=i+1
+    }while(i<100)
   }
+
+
 
   //计算新旧中心之间的距离，当距离小于阈值时，聚类算法结束
 
 
   def main(args: Array[String]) {  //小于阈值时，结束循环
-      if (epsilon == 0){
-
-      }else {     //否则，新的中心来代替旧的中心，进行下一轮迭代
-
-      }
+    // 初始化k值的个数，中心点的位置
+    RunKmeans.init(20)
+    calculateClusters  // 聚类逻辑
+    printCluster       // 保存输出结果
   }
 
 
   //输出最后聚类结果
+  def printCluster():Unit={
+
+    println("类别个数"+ clusters.size)
+    for(i<- clusters){
+      println("类别："+i.size())
+
+      for(j<-i){
+        println(j.getTagsString)
+      }
+      println("                ")
+      println("       ********         ")
+    }
+  }
 
 
 }
