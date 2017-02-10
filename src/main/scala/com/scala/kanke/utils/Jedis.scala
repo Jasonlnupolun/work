@@ -1,7 +1,7 @@
 package com.scala.kanke.utils
 
 import com.java.kanke.utils.redis.JedisUtil
-import redis.clients.jedis.Jedis
+import redis.clients.jedis.{JedisPool, Jedis}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -11,7 +11,7 @@ import scala.collection.mutable.ArrayBuffer
 object Jedis {
   def putJedis(recType:String,userid:String,gson:String): Unit ={
     if(recType!=null&&userid.nonEmpty){
-      val jedis: Jedis = JedisUtil.getInstance.getJedis
+      val jedis = JedisUtil.getInstance.getJedis
       jedis.hset(recType,userid,gson)
       JedisUtil.getInstance.returnJedis(jedis)
     }

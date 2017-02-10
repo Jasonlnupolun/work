@@ -29,7 +29,7 @@ public class JedisUtil {
                     10000, JRedisPoolConfig.REDIS_PASSWORD);
        }*/
 
-    public static JedisPool getPool() {
+    private static synchronized JedisPool getPool() {
         if (jedisPool == null) {
             JedisPoolConfig config = new JedisPoolConfig();
             //控制一个pool可分配多少个jedis实例，通过pool.getResource()来获取；
@@ -47,22 +47,15 @@ public class JedisUtil {
         }
         return jedisPool;
     }
-       
-
-      
-     /** 
+     /**
       * 从jedis连接池中获取获取jedis对象   
       * @return 
       */  
      public Jedis getJedis() {    
          return getPool().getResource();
     }  
-       
-       
      private static final JedisUtil jedisUtil = new JedisUtil();
-       
-   
-    /** 
+    /**
      * 获取JedisUtil实例 
      * @return 
      */  
@@ -77,9 +70,18 @@ public class JedisUtil {
      * 回收jedis 
      * @param jedis 
      */  
-    public void returnJedis(Jedis jedis) {  
-        jedisPool.returnResource(jedis);  
-    }   
+    public void returnJedis(Jedis jedis) {
+        try {
+            jedisPool.returnResource(jedis);
+        }catch (Exception ex){
+            if(jedis !=null){
+                returnBrokenJedis(jedis);
+            }
+        }
+    }
+    public void returnBrokenJedis(Jedis jedis) {
+        jedisPool.returnBrokenResource(jedis);
+    }
 
     /** 
      * 设置过期时间 
@@ -90,13 +92,20 @@ public class JedisUtil {
     public void expire(String key, int seconds) {  
         if (seconds <= 0) {   
             return;  
-        }  
-        Jedis jedis = getJedis();  
-        jedis.expire(key, seconds);  
-        returnJedis(jedis);  
+        }
+        Jedis jedis =null;
+        try {
+             jedis = getJedis();
+            jedis.expire(key, seconds);
+            returnJedis(jedis);
+        }catch (Exception ex   ){
+            if(jedis!=null){
+                returnBrokenJedis(jedis);
+            }
+
+        }
     }  
-  
-    /** 
+    /**
      * 设置默认过期时间 
      * @author ruan 2013-4-11 
      * @param key 
@@ -105,5 +114,4 @@ public class JedisUtil {
         expire(key, expire);  
     }
 
-
-}  
+}
