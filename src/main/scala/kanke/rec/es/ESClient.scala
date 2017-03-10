@@ -30,6 +30,12 @@ case class ESClient(client:Client) {
       case any:Throwable=>logger.error(any);throw any
     }
   }
+
+  def save[T](): Unit ={
+
+  }
+
+
   def close(): Unit ={
     client.close()
   }
@@ -40,7 +46,7 @@ object ESClient{
   def apply(host: String, port: Int,clusterName:String="elasticsearch",isSniff:Boolean=true): ESClient ={
     val logger = Logger.getLogger(getClass)
     logger.info(s"$host $port $clusterName")
-    val client = EsUtils.getClient("localhost",9200)
+    val client = EsUtils.getClient(host,port,clusterName)
     ESClient(client)
   }
 }

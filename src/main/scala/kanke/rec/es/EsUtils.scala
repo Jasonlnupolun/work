@@ -14,7 +14,7 @@ import org.elasticsearch.plugin.deletebyquery.DeleteByQueryPlugin
 object EsUtils {
   def getClient(localhost: String, port: Int,clusterName:String="elasticsearch"): Client = {
     val settings = Settings.settingsBuilder
-      .put("cluster.name", "elasticsearch")
+      .put("cluster.name", clusterName)
       .put("client.transport.sniff", true).build;
     val listTransportAddress = getLocalTransportAddress
 
@@ -29,7 +29,7 @@ object EsUtils {
     val host1: String = "121.42.141.232"
     val port1: String = "9300"
     val host2: String = "115.28.156.126"
-    val port2: String = "9300"
+    val port2: String = "19300"
     val host3: String = "121.42.60.39"
     val port3: String = "9300"
     val inetSocketTransportAddressList: Array[InetSocketTransportAddress] = new Array[InetSocketTransportAddress](3)
