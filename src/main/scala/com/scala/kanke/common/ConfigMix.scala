@@ -8,6 +8,8 @@ import com.scala.kanke.utils.ConfigUtils
   */
 object ConfigMix {
 
+
+  val topic = PropertyUtil.get("kafka.topic")
   val tool = ConfigUtils("mix.properties")
 
   val time = PropertyUtil.get("updatetime").toInt*60000L;

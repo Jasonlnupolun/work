@@ -18,7 +18,6 @@ class TagsClassRec {
     val userHistory = tagdao.queryHistoryByUserId(u.toString) //查找历史
     val json = tagservice.startServerTags(userHistory)
     logger.info(TagConfigClass.prefix+"推荐的结果："+u.toString+"    " + json)
-    (u, json);
-
+    (u, json)
   }
 }

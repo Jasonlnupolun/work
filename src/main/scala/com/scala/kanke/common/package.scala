@@ -8,4 +8,7 @@ import com.java.kanke.utils.PropertyUtil
 package object common {
      val zookeeper = PropertyUtil.get("zookeeper.connect")
      val topic = PropertyUtil.get("kafka.topic")
+     val elasticip = PropertyUtil.get("elasticip")
+     val elasticport = PropertyUtil.get("elasticport").toInt
+     val clustername = PropertyUtil.get("clustername")
 }

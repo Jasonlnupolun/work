@@ -36,7 +36,7 @@ public class SaveData {
                 .put("client.transport.sniff", true)
                 .build();
         Client client = TransportClient.builder().settings(settings).build()
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 9300));
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ip), 19300));
         return client;
     }
     public static void  saveData(List<KmResults> json,String index,String name ){

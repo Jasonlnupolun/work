@@ -1,6 +1,6 @@
 package com.scala.kanke.server.mix
 
-import com.java.kanke.utils.bean.UserHistory
+import com.java.kanke.utils.bean.{Video, UserHistory}
 import com.scala.kanke.arg.canopy.{CanopyBuilder, VideoVector, Canopy}
 import com.scala.kanke.arg.knn.Knn.Result
 import com.scala.kanke.arg.knn.{FeatureBean, Knn, Vectoriza}
@@ -121,6 +121,63 @@ class MixServerImpl {
     logger.info("保存结果是："+knnMap)
     knnMap
   }
+
+
+  // 通过kafka进行计算推荐系统
+  def startKafkaServerMix(typename:String,bean:List[Video]): scala.collection.immutable.Map[String,Double] ={
+    //根据用户历史查全信息量构建特征向量
+    val listvideo = userHistoryService.userVideoToFeatureBean(typename,bean)
+
+    //查询用户历史记录   bean 即是历史数据  构建看过影片的id集合
+    val historyidSet = bean.map(x=>x.getKankeid).toSet[String]
+    //        val eSClient =  ESClient(tc.esIp,tc.esPort,tc.esClusterName,tc.esIsSniff)
+    //        val mixUserRecord = eSClient.query(QueryITUMixJob(uid, 50, 60, config.esIndex), classOf[UserHistory])
+    // 取用户历史纪录的代表
+    val canopys = doCanopy(listvideo.toList)
+    //得到推荐的结果Map id->权重  //推荐有重复的，进行去重复
+    val knnMap = scala.collection.mutable.Map[String,Double]()
+    for(i<-canopys) {
+      val k = i.points.size * 10
+      val caseids = Knn.searchIdsByCanopy(i, MixConstant.mapGraph(typename), k)
+      //添加权重  &  过滤掉观看过的历史数据
+      for (ca <- caseids if !historyidSet.contains(ca.id)) {
+        //设置影片的权重，公式为相似度×（1+簇权重）×（1+年代权重×年代）
+        val tmpid = ca.id
+        val tmptypename = tmpid.substring(0,tmpid.indexOf("_"))
+        val array = Jedis.getMixJedis(tmptypename,ca.id)
+        if(array!=null){
+          val tmpArray = array.split(";");
+          var weight = 0.0
+          val similarity = ca.weight;
+          val canopyweight = ca.weight * (1+i.points.size/listvideo.size)      //根据聚类的个数设置影片相似权重
+          val yearweight = tmpArray(0).toDouble
+          val playcount = tmpArray(1)
+          val score = tmpArray(2)
+          weight = 1.0 * canopyweight + 2.0 * yearweight
+          if(knnMap.get(ca.id)== None || knnMap(ca.id) < canopyweight){
+            knnMap(ca.id)=weight
+          }
+        }else{
+          var weight = 0.0
+          val similarity = ca.weight;
+          val canopyweight = ca.weight * (1+i.points.size/listvideo.size)      //根据聚类的个数设置影片相似权重
+          val yearweight = 0
+          val playcount = 0
+          val score = 0
+          weight = 1.0 * canopyweight + 2.0 * yearweight
+          if(knnMap.get(ca.id)== None || knnMap(ca.id) < canopyweight){
+            knnMap(ca.id)=weight
+          }
+        }
+      }
+    }
+
+    val result =  knnMap.toList.sortWith(_._2 > _._2)
+    logger.info("保存结果是："+result.size+"  分别是："+result)
+    result.toMap[String,Double]
+  }
+
+
 
 
   def doCanopy(featureBeans:List[FeatureBean]):ArrayBuffer[Canopy]={

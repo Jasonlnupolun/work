@@ -12,7 +12,7 @@ public class EsCluster {
 
 	 public static final String CLUSTER_NAME = "kanke-cluster"; //实例名称
 	    private static final String IP1 = "115.28.156.126";
-	    private static final int PORT1 = 9300;  //端口
+	    private static final int PORT1 = 19300;  //端口
 //		private static final String IP2 = "115.28.156.126";
 //		private static final int PORT2 = 9300;  //端口
 //		private static final String IP3 = "121.42.60.39";

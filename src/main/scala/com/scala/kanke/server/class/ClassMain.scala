@@ -20,16 +20,20 @@ object ClassMain {
     while(true){
       val users = dao.queryAllUserId()
       for(u <- users){
-        var resultMap = scala.collection.mutable.Map[String,Double]()
-        for(k <- ConfigClass.classtypename){
-          val defaultdata = default(k)
-          val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
-          val json = service.startServerClass(userHistory,defaultdata,k)
-          log.info(ConfigClass.prefix+k+"   推荐的结果："+u.toString+"   "+json)
-          Jedis.putJedis(ConfigClass.prefix+k,u.toString,json);
-          }
+        getClassRecResult(u)
       }
       Thread.sleep(1000*60*5)
+    }
+  }
+
+  def getClassRecResult(u:String)={
+    var resultMap = scala.collection.mutable.Map[String,Double]()
+    for(k <- ConfigClass.classtypename){
+      val defaultdata = default(k)
+      val userHistory = dao.queryByUserIdHistory(u.toString,k)  //查找历史
+      val json = service.startServerClass(userHistory,defaultdata,k)
+      log.info(ConfigClass.prefix+k+"   推荐的结果："+u.toString+"   "+json)
+      Jedis.putJedis(ConfigClass.prefix+k,u.toString,json);
     }
   }
 
@@ -43,7 +47,6 @@ object ClassMain {
       val jsonStr = gson.toJson(labelMap);
       Jedis.putJedis(ConfigClass.prefix+k,"-1",jsonStr);
     }
-
   }
 
 }

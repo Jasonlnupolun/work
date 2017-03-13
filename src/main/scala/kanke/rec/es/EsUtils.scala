@@ -16,12 +16,8 @@ object EsUtils {
     val settings = Settings.settingsBuilder
       .put("cluster.name", clusterName)
       .put("client.transport.sniff", true).build;
-    val listTransportAddress = getLocalTransportAddress
-
-    TransportClient.builder.settings(settings)
-      .build.addTransportAddress(listTransportAddress(0))
-//      .addTransportAddress(listTransportAddress(1))
-//      .addTransportAddress(listTransportAddress(2))
+    TransportClient.builder().settings(settings).build()
+      .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(localhost), port));
   }
 
   @throws(classOf[UnknownHostException])
@@ -49,11 +45,10 @@ object EsUtils {
     inetSocketTransportAddressList
   }
 
+
   def getESClient(localhost: String, port: Int,clusterName:String="elasticsearch",isSniff:Boolean=true):ESClient={
     ESClient(getClient(localhost,port,clusterName))
   }
-
-
 
 
 

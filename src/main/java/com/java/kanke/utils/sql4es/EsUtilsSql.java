@@ -36,7 +36,7 @@ public class EsUtilsSql {
 	}
 	private static InetSocketTransportAddress getTransportAddress() throws UnknownHostException {
 		String host = "115.28.156.126";
-		String port = "9300";
+		String port = "19300";
 		System.out.println(String.format("Connection details: host: %s. port:%s.", host, port));
 		return new InetSocketTransportAddress(InetAddress.getByName(host), Integer.parseInt(port));
 	}

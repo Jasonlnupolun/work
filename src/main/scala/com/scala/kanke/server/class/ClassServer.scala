@@ -13,6 +13,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 trait ClassServer{
   def getuserHisttory(userid:List[UserHistory]):List[FeatureBean]
+  def startServerClass(userHistory:List[UserHistory],default:List[Video],typename:String):String
 }
 class ClassServerImpl extends  ClassServer{
   val logger = Logger.getLogger(getClass)
@@ -36,7 +37,7 @@ class ClassServerImpl extends  ClassServer{
     CanopyBuilder.canopies
   }
 
-  def startServerClass(userHistory:List[UserHistory],default:List[Video],typename:String):String={
+  override def startServerClass(userHistory:List[UserHistory],default:List[Video],typename:String):String={
     //1，根据簇内影片数量过滤分类推荐结果
     //1.查看用户的历史 转换为向量的 bean
     val userVideolist = getuserHisttory(userHistory)

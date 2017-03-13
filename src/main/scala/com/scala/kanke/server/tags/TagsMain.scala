@@ -20,13 +20,18 @@ object TagsMain {
     while (true) {
       val users = dao.queryAllUserId()
       for (u <- users) {
-          var resultMap = scala.collection.mutable.Map[String, Double]()
-          val userHistory = dao.queryHistoryByUserId(u.toString) //查找历史
-          val json = service.startServerTags(userHistory)
-          log.info(TagConfigClass.prefix+"推荐的结果："+u.toString+"    " + json)
-          Jedis.putJedis(TagConfigClass.prefix, u.toString, json);
+        getTagsRecResult(u:String)
       }
       Thread.sleep(ConfigMix.time)
     }
   }
+
+  def getTagsRecResult(u:String): Unit ={
+    var resultMap = scala.collection.mutable.Map[String, Double]()
+    val userHistory = dao.queryHistoryByUserId(u.toString) //查找历史
+    val json = service.startServerTags(userHistory)
+    log.info(TagConfigClass.prefix+"推荐的结果："+u.toString+"    " + json)
+    Jedis.putJedis(TagConfigClass.prefix, u.toString, json);
+  }
+
 }
